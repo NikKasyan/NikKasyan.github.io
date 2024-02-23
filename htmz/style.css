@@ -365,7 +365,7 @@ figure.main-contact > figcaption > section > p {
 
 /** Mobile Navigation **/
 
-@media only screen and (max-width: 900px) {
+@media screen and (max-width: 900px) {
 
     h1.title {
         font-size: 2rem;
