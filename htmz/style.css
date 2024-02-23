@@ -146,7 +146,7 @@ blockquote.highlight {
 main > section {
     
     display: flex;
-    row-gap: 20px;
+    row-gap: 10px;
     flex-direction: column;
     width: 100%;
 }
@@ -173,6 +173,7 @@ a {
     padding: 20px;
     height: 85%;
     min-width: 600px;
+    gap: 20px;
 
 }
 
@@ -486,7 +487,7 @@ figure.main-contact > figcaption > section > p {
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 580px) {
     body {
         padding: 0px;
     }
