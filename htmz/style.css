@@ -1,7 +1,9 @@
 html {
     display: grid;
     height: 100%;
+    background-color: #f8f9fa;
 }
+
 body {
     display: flex;
     height: 100%;
@@ -12,7 +14,6 @@ div.root {
     align-items: center;
     height: 100%;
     width: 100%;
-    background-color: #f8f9fa;
     column-gap: 10px;
     padding: 0px 20px;
     /*background-image: url("/img/Frau_Kasyan.jpg") ;*/
@@ -29,6 +30,7 @@ div.container {
 }
 
 /** Navigation **/
+
 nav {
     display: flex;
     flex-direction: column;
@@ -75,9 +77,11 @@ nav > ul > li > a {
 nav > ul > li > a:hover {
     background-color: #e9ecef;
 }
+
 .active {
     background-color: #e9ecef;
 }
+
 
 /** General **/
 h1 {
@@ -352,4 +356,109 @@ figure.main-contact > figcaption > section > p {
 
 #main.main-contact-container > section {
     gap: 5px;
+}
+
+
+/** Mobile Navigation **/
+
+@media (max-width: 900px) {
+    div.container {
+        padding: 20px;
+    }
+    /** Burger Menu **/
+    .burger-menu {
+        align-self: start;
+        cursor: pointer;
+    }
+    .burger-menu span
+    {
+      display: block;
+      width: 33px;
+      height: 4px;
+      margin-bottom: 5px;
+      position: relative;
+      
+      background: #cdcdcd;
+      border-radius: 3px;
+      
+      z-index: 1;
+      
+      transform-origin: 4px 0px;
+      
+      transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                  background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                  opacity 0.55s ease;
+    }
+    
+    /* 
+    * Transform all the slices of hamburger
+    * into a crossmark.
+    */
+    /*
+     * Ohyeah and the last one should go the other direction
+     */
+     .burger-menu.open span:nth-last-child(3)
+     {
+       transform: rotate(45deg) translate(0px, -1px);
+       background: #232323;
+     }
+
+    .burger-menu.open span:nth-last-child(1)
+    {
+      transform: rotate(-45deg) translate(-1px, -1px);
+      background: #232323;
+    }
+    
+    /*
+     * But let's hide the middle one.
+     */
+     .burger-menu.open span:nth-last-child(2)
+    {
+      opacity: 0;
+      transform: rotate(0deg) scale(0.2, 0.2);
+    }
+    
+
+ 
+
+    /** Navigation **/
+    nav {
+        position: fixed;
+        left: 20px;
+        top: 25%;
+        min-height: fit-content;
+    }
+
+    nav > ul {
+        display: none;
+    }
+    nav.open > ul {
+        
+        display: flex;
+    }
+
+    div.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+    }
+    #main {
+        width: 100%;
+    }
+    #main.co-mediation {
+        width: 100%;
+    }
+    #main.main-contact-container {
+        width: 100%;
+    }
+    #main > section {
+        width: 100%;
+    }
 }
