@@ -45,7 +45,8 @@ nav {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
-    min-height: 480px;
+    min-height: 480px;  
+    height: 80%;
 }
 nav > ul {
     list-style: none;
@@ -74,7 +75,7 @@ nav > ul > li > a {
     display: block;
     text-decoration: none;
     color: #495057;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -142,18 +143,6 @@ blockquote.highlight {
     color: #933649;
     font-weight: 600;
 }
-
-main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: start;
-    align-items: center;
-    padding: 20px;
-    min-height: 480px;
-    text-align: left;
-}
-
 main > section {
     
     display: flex;
@@ -177,12 +166,13 @@ a {
 #main {
     display: flex;
     min-height: 380px;
-    width: 570px;
+    width: 35%;
     flex-direction: column;
     justify-content: start;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    height: fit-content;
+    height: 85%;
+    min-width: 600px;
 
 }
 
@@ -234,7 +224,6 @@ a {
 }
 /** Mediation Wozu **/
 
-
 main.mediation-wozu > section > strong {
     text-align: center;
     display: block;
@@ -259,10 +248,18 @@ img.mediation-wozu-image {
     border-radius: 10px;
 }
 
-/** Co-Mediation **/
-#main.co-mediation {
-    width: 650px;
+.mediation-header-title {
+    display: flex;
+    flex-basis: 60%;
+    flex-direction: column;
 }
+.mediation {
+    gap: 20px;
+}
+
+/** Co-Mediation **/
+
+
 .contacts {
     display: flex;
     flex-flow: row wrap;
@@ -365,7 +362,7 @@ figure.main-contact > figcaption > section > p {
 
 /** Mobile Navigation **/
 
-@media (max-width: 900px), screen and (orientation: portrait) {
+@media (max-width: 960px), screen and (orientation: portrait) {
 
 
     h1.title {
@@ -436,15 +433,15 @@ figure.main-contact > figcaption > section > p {
     }
 
     /** Navigation **/
-    div.nav-container {
-        align-self: start;
-        position: relative;
-    }
+
     nav {
+        display: flex;
         position: absolute;
         align-self: start;
         min-height: fit-content;
-        left: -20px;
+        left: 0;
+        top: 0;
+        height: auto;
     }
 
     nav > ul {
@@ -461,6 +458,7 @@ figure.main-contact > figcaption > section > p {
         justify-content: center;
         align-items: center;
         gap:0px;
+        padding: 0;
     }
 
     #main {
@@ -469,10 +467,10 @@ figure.main-contact > figcaption > section > p {
         justify-content: start;
         align-items: center;
         padding-top: 70px;
-    }
-
-    #main {
+        min-width: 300px;
+        height: 100%;
         width: 100%;
+        gap: 10px;
     }
 
     .home-bio {
@@ -501,4 +499,14 @@ figure.main-contact > figcaption > section > p {
     #main {
         height: 100%;
     }
+    nav.open {
+        height: calc(100% - 45px);
+    }
+    nav.open > ul {
+        gap: 10px;
+        justify-content: space-evenly;
+    }
+    nav.open > ul > li > a{
+        font-size: 2.0rem;
+    };
 }
