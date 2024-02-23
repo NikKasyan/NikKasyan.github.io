@@ -30,7 +30,11 @@ div.container {
 }
 
 /** Navigation **/
-
+div.nav-container {
+    min-width: 240px;
+    width: 30%;
+    max-width: 240px;
+}
 nav {
     display: flex;
     flex-direction: column;
@@ -361,7 +365,7 @@ figure.main-contact > figcaption > section > p {
 
 /** Mobile Navigation **/
 
-@media (max-width: 900px) {
+@media only screen and (max-width: 900px) {
 
     h1.title {
         font-size: 2rem;
