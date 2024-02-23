@@ -362,9 +362,21 @@ figure.main-contact > figcaption > section > p {
 /** Mobile Navigation **/
 
 @media (max-width: 900px) {
+
+    h1.title {
+        font-size: 2rem;
+    }
+    img.mediation-wozu-image {
+        max-width: 120px;
+    }
+    #main.co-mediation {
+        width: 100%;
+    }
     div.container {
+        display: block;
         padding: 20px;
     }
+
     /** Burger Menu **/
     .burger-menu {
         align-self: start;
@@ -417,16 +429,17 @@ figure.main-contact > figcaption > section > p {
       opacity: 0;
       transform: rotate(0deg) scale(0.2, 0.2);
     }
-    
-
- 
 
     /** Navigation **/
+    div.nav-container {
+        align-self: start;
+        position: relative;
+    }
     nav {
-        position: fixed;
-        left: 20px;
-        top: 25%;
+        position: absolute;
+        align-self: start;
         min-height: fit-content;
+        left: -20px;
     }
 
     nav > ul {
@@ -442,23 +455,30 @@ figure.main-contact > figcaption > section > p {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap:0px;
     }
-    main {
+
+    #main {
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: center;
+        padding-top: 70px;
     }
+
     #main {
         width: 100%;
     }
-    #main.co-mediation {
+
+    .home-bio {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    .mediation-wozu-header {
         width: 100%;
     }
-    #main.main-contact-container {
-        width: 100%;
-    }
-    #main > section {
-        width: 100%;
+    figure.main-contact > figcaption {
+        padding: 20px 0px;
     }
 }
