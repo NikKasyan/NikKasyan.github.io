@@ -365,7 +365,8 @@ figure.main-contact > figcaption > section > p {
 
 /** Mobile Navigation **/
 
-@media (max-width: 1200px), screen and (orientation: portrait) {
+@media (max-width: 900px), screen and (orientation: portrait) {
+
 
     h1.title {
         font-size: 2rem;
@@ -484,5 +485,20 @@ figure.main-contact > figcaption > section > p {
     }
     figure.main-contact > figcaption {
         padding: 20px 0px;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 0px;
+    }
+    div.root {
+        padding: 0px 20px;
+    }
+    div.container {
+        padding: 0px;
+    }
+    #main {
+        height: 100%;
     }
 }
