@@ -75,7 +75,7 @@ nav > ul > li > a {
     display: block;
     text-decoration: none;
     color: #495057;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 600;
 }
 
@@ -358,6 +358,74 @@ figure.main-contact > figcaption > section > p {
 
 #main.main-contact-container > section {
     gap: 5px;
+}
+
+/** High resolution Screens **/
+
+@media (min-width: 1921px) {
+    h1 {
+        font-size: 3rem;
+    }
+    img.mediation-wozu-image {
+        max-width: 200px;
+    }
+    div.container {
+        display: flex;
+        padding: 20px;
+    }
+    div.nav-container {
+        min-width: 240px;
+        width: 20%;
+        max-width: 240px;
+    }
+    nav {
+        max-height: 900px;
+    }
+    nav > ul > li > a {
+        font-size: 2.5rem;
+    }
+    #main {
+        max-height: 1000px;
+    }
+    .home-image {
+        width: 200px;
+    }
+    .co-mediation-image {
+        width: 150px;
+        height: 200px;
+    }
+    .burger-menu {
+        display: none;
+    }
+    p, h5, strong, .info span {
+        font-size: 1.5rem;
+    }
+    small {
+        font-size: 1.2rem;
+    }
+    blockquote {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.8rem;
+    }
+    .contact-info > li { 
+        font-size: 1.2rem;
+    }
+
+    figcaption {
+        font-size: 1.2rem;
+    }
+    figure.main-contact > figcaption > section > p {
+        font-size: 1.2rem;
+    }
+    figure.main-contact > figcaption > p {
+        font-size: 1.2rem;
+    }
+    figure {
+        max-width: fit-content;
+        align-items: center;
+    }
 }
 
 
