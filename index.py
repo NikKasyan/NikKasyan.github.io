@@ -52,3 +52,5 @@ with open('htmz/index.html', 'r') as file:
     # Copy the js directory to the generated-html directory using shutil
     shutil.copy('html/main.js', 'generated-html/main.js')
     print('main.js has been copied to the generated-html directory')
+    # Copy Robots.txt to the generated-html directory using shutil
+    shutil.copy('htmz/robots.txt', 'generated-html/robots.txt')
