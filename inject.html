@@ -1,0 +1,11 @@
+<script>
+    const webSocket = new WebSocket('ws://{{address}}');
+    webSocket.onmessage = function (event) {
+        if (event.data === 'reload'){
+            webSocket.close();
+            window.location.reload();
+            
+        }
+        
+    };
+</script>

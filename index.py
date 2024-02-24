@@ -54,3 +54,16 @@ with open('htmz/index.html', 'r') as file:
     print('main.js has been copied to the generated-html directory')
     # Copy Robots.txt to the generated-html directory using shutil
     shutil.copy('htmz/robots.txt', 'generated-html/robots.txt')
+    print('robots.txt has been copied to the generated-html directory')
+
+
+# Check if argument "hot-reload" is passed
+print(os.sys.argv)
+if len(os.sys.argv) > 1 and os.sys.argv[1] == 'hot-reload':
+    print("Hot-reload is enabled")
+    # Make http request to the server
+    import urllib.request
+    with urllib.request.urlopen('http://localhost:8080/reload') as response:
+        html = response.read()
+        print("Sending hot-reload request to the server...")
+     
