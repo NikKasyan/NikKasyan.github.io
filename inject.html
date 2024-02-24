@@ -1,11 +1,38 @@
 <script>
     const webSocket = new WebSocket('ws://{{address}}');
-    webSocket.onmessage = function (event) {
-        if (event.data === 'reload'){
-            webSocket.close();
-            window.location.reload();
-            
+    /**
+     * @param {MessageEvent} event
+     */
+    function onMessage(event) {
+        const reloadedFiles = event.data.split(' ');
+        if (reloadFiles.includes("index.html")) {
+            location.reload();
+            return;
         }
-        
+        for (let reloadedFile of reloadedFiles) {
+            if (reloadedFile === "home.html")
+                reloadedFile = "index.html";
+            if (reloadedFile.endsWith(".css"))
+                reloadCSS(reloadedFile);
+            else if (reloadedFile.endsWith(".html") && window.location.href.includes(reloadedFile)) {
+                location.reload();
+            } else {
+                location.reload();
+            }
+
+        }
     };
+
+    webSocket.onmessage = onMessage;
+
+    /**
+     * @param {string} cssFile
+     */
+    function reloadCSS(cssFile) {
+        document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+            if (link.href.includes(cssFile)) {
+                link.href = `${cssFile}?v=${new Date().getTime()}`;
+            }
+        });
+    }
 </script>

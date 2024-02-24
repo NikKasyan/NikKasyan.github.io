@@ -4,10 +4,40 @@ import os
 import re
 import shutil
 
+is_hot_reload = len(os.sys.argv) > 1 and os.sys.argv[1] == 'hot-reload'
+
+generated_at = 0
+outdated_files = []
+
+def check_outdated_files(directory, file_extension=''):
+    for filename in os.listdir(directory):
+        if filename.endswith(file_extension):
+            file_path = os.path.join(directory, filename)
+            file_created_at = os.path.getmtime(file_path)
+            if file_created_at > generated_at:
+                outdated_files.append(filename)
+
+if os.path.exists('generated-html') and is_hot_reload:
+    generated_at = os.path.getctime('generated-html')
+
+    # Check html and css files in htmz directory
+    check_outdated_files('htmz', ('.html', '.css'))
+
+    # Check files in assets directories
+    assets_directories = ['assets/img', 'assets/pdf', 'assets/js']
+    for directory in assets_directories:
+        check_outdated_files(directory)
+    
+
+    
+
 # Delete the generated-html directory if it exists
-if os.path.exists('generated-html'):
+if os.path.exists('generated-html') and (len(outdated_files) > 0 or not is_hot_reload):
     shutil.rmtree('generated-html')
     print('generated-html directory has been deleted')
+else:
+    print('generated-html directory is up to date')
+    os.sys.exit(0)
 # Create the generated-html directory
 os.mkdir('generated-html')
 # Open the index.html file
@@ -50,7 +80,7 @@ with open('htmz/index.html', 'r') as file:
     shutil.copytree('assets/pdf', 'generated-html/pdf')
     print('img directory has been copied to the generated-html directory')
     # Copy the js directory to the generated-html directory using shutil
-    shutil.copy('html/main.js', 'generated-html/main.js')
+    shutil.copy('assets/js/main.js', 'generated-html/main.js')
     print('main.js has been copied to the generated-html directory')
     # Copy Robots.txt to the generated-html directory using shutil
     shutil.copy('htmz/robots.txt', 'generated-html/robots.txt')
@@ -58,12 +88,17 @@ with open('htmz/index.html', 'r') as file:
 
 
 # Check if argument "hot-reload" is passed
-print(os.sys.argv)
-if len(os.sys.argv) > 1 and os.sys.argv[1] == 'hot-reload':
+
+if is_hot_reload:
     print("Hot-reload is enabled")
     # Make http request to the server
     import urllib.request
-    with urllib.request.urlopen('http://localhost:8080/reload') as response:
+    reloaded_files = ' '.join(outdated_files)
+    print(f'Outdated files: {reloaded_files}')
+    # Url encode the reloaded_files
+    reloaded_files = urllib.parse.quote(reloaded_files)
+
+    with urllib.request.urlopen(f'http://localhost:8080/reload?r={reloaded_files}') as response:
         html = response.read()
         print("Sending hot-reload request to the server...")
      

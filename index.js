@@ -12,6 +12,12 @@ const wss = new WebSocket.Server({ server });
 
 
 app.use((req, res, next) => {
+    if(req.url === '/favicon.ico') {
+        res.status(204).send()
+    }
+    if(req.url === '/'){
+        res.redirect('/index.html')
+    }
     const filePath = path.join(__dirname, "generated-html", req.url);
 
     if (path.extname(filePath) === '.html' && fs.existsSync(filePath)) {
@@ -33,9 +39,13 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'generated-html')));
 
-app.use('/reload', () => {
+app.use('/reload', (req) => {
+    const query = req.query;
+    if(!query.r)
+        return;
+    console.log("Sending reload message to all clients", query.r)
     wss.clients.forEach((client) => {
-        client.send('reload')
+        client.send(query.r)
     })
 })
 const clients = []
