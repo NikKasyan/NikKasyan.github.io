@@ -340,14 +340,14 @@ figure.main-contact > figcaption > h3 {
 
 figure.main-contact > figcaption > p {
     text-align: left;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 200;
     color: #495057;
 }
 
 figure.main-contact > figcaption > section > p {
     text-align: left;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 200;
     color: #495057;
 }
@@ -409,6 +409,9 @@ figure.main-contact > figcaption > section > p {
     h3 {
         font-size: 1.8rem;
     }
+    a {
+        font-size: 1.5rem;
+    }
     .contact-info > li { 
         font-size: 1.2rem;
     }
@@ -417,7 +420,7 @@ figure.main-contact > figcaption > section > p {
         font-size: 1.2rem;
     }
     figure.main-contact > figcaption > section > p {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
     figure.main-contact > figcaption > p {
         font-size: 1.2rem;
