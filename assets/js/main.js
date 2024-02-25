@@ -9,10 +9,6 @@ const init = () => {
             burgerMenu.classList.toggle("open");
         });
     })();
-
-
-
-
 }
 
 
