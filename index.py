@@ -39,7 +39,7 @@ else:
     if is_hot_reload:
         print('generated-html directory is up to date')
         os.sys.exit(0)
-    else:
+    elif os.path.exists('generated-html'):
         shutil.rmtree('generated-html')
         print('generated-html directory has been deleted')
 # Create the generated-html directory
