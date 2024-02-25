@@ -36,8 +36,12 @@ if os.path.exists('generated-html') and (len(outdated_files) > 0 or not is_hot_r
     shutil.rmtree('generated-html')
     print('generated-html directory has been deleted')
 else:
-    print('generated-html directory is up to date')
-    os.sys.exit(0)
+    if is_hot_reload:
+        print('generated-html directory is up to date')
+        os.sys.exit(0)
+    else:
+        shutil.rmtree('generated-html')
+        print('generated-html directory has been deleted')
 # Create the generated-html directory
 os.mkdir('generated-html')
 # Open the index.html file
