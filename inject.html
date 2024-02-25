@@ -1,12 +1,20 @@
 <script>
     const webSocket = new WebSocket('ws://{{address}}');
     /**
+     * @param {string} reloadedFile
+     */
+    async function reloadHtml(reloadedFile) {
+        const htmlContent = await fetch(reloadedFile).then((response) => response.text());
+                document.documentElement.innerHTML = htmlContent;
+    }
+
+    /**
      * @param {MessageEvent} event
      */
-    function onMessage(event) {
+    async function onMessage(event) {
         const reloadedFiles = event.data.split(' ');
-        if (reloadFiles.includes("index.html")) {
-            location.reload();
+        if (reloadedFiles.includes("index.html")) {
+                reloadHtml(reloadedFile);
             return;
         }
         for (let reloadedFile of reloadedFiles) {
@@ -15,9 +23,9 @@
             if (reloadedFile.endsWith(".css"))
                 reloadCSS(reloadedFile);
             else if (reloadedFile.endsWith(".html") && window.location.href.includes(reloadedFile)) {
-                location.reload();
+                reloadHtml(reloadedFile);
             } else {
-                location.reload();
+                reloadHtml(reloadedFile);
             }
 
         }
@@ -29,9 +37,19 @@
      * @param {string} cssFile
      */
     function reloadCSS(cssFile) {
+        // Get every link with same css file
+        const links = document.querySelectorAll('link[rel="stylesheet"]');
+
+
+
         document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
             if (link.href.includes(cssFile)) {
-                link.href = `${cssFile}?v=${new Date().getTime()}`;
+                const newNode = link.cloneNode();
+                newNode.href = `${cssFile}?v=${new Date().getTime()}`
+                link.after(newNode);
+                newNode.onload = () => {
+                    link.remove();
+                }
             }
         });
     }

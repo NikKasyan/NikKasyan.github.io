@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon --watch htmz -e js,css,html --exec python .\/index.py hot-reload"
+    "watch": "nodemon --watch html -e js --watch htmz -e js,css,html --exec python .\/index.py hot-reload"
   },
   "author": "Nikolaus Kasyan",
   "license": "ISC",
