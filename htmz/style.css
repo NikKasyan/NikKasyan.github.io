@@ -8,6 +8,10 @@ body {
     display: flex;
     height: 100%;
 }
+
+a {
+    white-space: nowrap
+}
 div.root {
     display: flex;
     justify-content: center;
@@ -177,6 +181,7 @@ a {
 
 }
 
+
 .home-main {
     align-items: center;
     gap: 40px;
@@ -243,8 +248,13 @@ main.mediation-wozu > section > strong {
     gap: 20px;
 }
 
+section > ul  {
+    list-style-type: disc;
+    list-style: inside;
+}
+
 img.mediation-wozu-image {
-    width: 180px;
+    width: 120px;
     height: auto;
     border-radius: 10px;
 }
@@ -354,10 +364,16 @@ figure.main-contact > figcaption > section > p {
 
 #main.main-contact-container {
     align-items: start;
+    justify-content: center;
 }
 
 #main.main-contact-container > section {
     gap: 5px;
+}
+img.contact-image {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
 }
 
 /** High resolution Screens **/

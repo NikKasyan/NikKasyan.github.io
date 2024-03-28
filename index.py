@@ -102,7 +102,7 @@ if is_hot_reload:
     # Url encode the reloaded_files
     reloaded_files = urllib.parse.quote(reloaded_files)
 
-    with urllib.request.urlopen(f'http://localhost:8080/reload?r={reloaded_files}') as response:
+    with urllib.request.urlopen(f'http://localhost:8081/reload?r={reloaded_files}') as response:
         html = response.read()
         print("Sending hot-reload request to the server...")
      
