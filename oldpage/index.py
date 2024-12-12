@@ -36,8 +36,12 @@ if os.path.exists('generated-html') and (len(outdated_files) > 0 or not is_hot_r
     shutil.rmtree('generated-html')
     print('generated-html directory has been deleted')
 else:
-    print('generated-html directory is up to date')
-    os.sys.exit(0)
+    if is_hot_reload:
+        print('generated-html directory is up to date')
+        os.sys.exit(0)
+    elif os.path.exists('generated-html'):
+        shutil.rmtree('generated-html')
+        print('generated-html directory has been deleted')
 # Create the generated-html directory
 os.mkdir('generated-html')
 # Open the index.html file
@@ -98,7 +102,7 @@ if is_hot_reload:
     # Url encode the reloaded_files
     reloaded_files = urllib.parse.quote(reloaded_files)
 
-    with urllib.request.urlopen(f'http://localhost:8080/reload?r={reloaded_files}') as response:
+    with urllib.request.urlopen(f'http://localhost:8081/reload?r={reloaded_files}') as response:
         html = response.read()
         print("Sending hot-reload request to the server...")
      
