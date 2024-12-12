@@ -18,7 +18,7 @@
     async function onMessage(event) {
         const reloadedFiles = event.data.split(' ');
         if (reloadedFiles.includes("index.html")) {
-                reloadHtml();
+            reloadHtml();
             return;
         }
         for (let reloadedFile of reloadedFiles) {

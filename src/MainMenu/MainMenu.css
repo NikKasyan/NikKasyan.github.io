@@ -1,0 +1,29 @@
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 10px;
+}
+
+.links > a {
+    padding: 5px;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    
+}
+
+.links > a:hover {
+    background-color: #747bff;
+}
+
+.main-menu > .links {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    gap: 10px;
+}

@@ -1,0 +1,21 @@
+import { Component } from "solid-js";
+import { usePreferences } from "../theme/PreferencesContext";
+import { getSystemTheme } from "../util/systemTheme";
+
+export const ReplyIcon: Component = () => {
+    const { preferences: { theme } } = usePreferences();
+    let currentTheme = theme
+    if (currentTheme === "system") {
+        currentTheme = getSystemTheme()
+    }
+    const fill = currentTheme === "dark" ? "#ffffff" : "#000000"
+
+    return (
+        <svg fill={fill} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 288.926 288.926">
+            <path d="M235.656,133.414c-24.775-24.776-55.897-41.771-89.999-49.146c-21.59-4.67-43.696-5.347-65.303-2.149v-55.21L0,107.07
+	l80.354,80.546v-75.08c48.282-8.498,98.84,6.842,134.089,42.091c28.685,28.685,44.482,66.824,44.482,107.391h30
+	C288.926,213.437,270.008,167.765,235.656,133.414z"/>
+        </svg>
+    )
+}

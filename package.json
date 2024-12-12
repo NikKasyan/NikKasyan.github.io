@@ -1,19 +1,20 @@
 {
-  "name": "nikkasyan.github.io",
-  "version": "1.0.0",
-  "description": "This is just a simple website using a slightly modified version of [htmz](https://leanrada.com/htmz/)",
-  "main": "index.js",
+  "name": "chi25",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon --watch html -e js --watch htmz -e js,css,html --exec python .\/index.py hot-reload"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
   },
-  "author": "Nikolaus Kasyan",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "ws": "^8.16.0"
+    "@solidjs/router": "^0.15.0",
+    "solid-js": "^1.9.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10",
+    "vite-plugin-solid": "^2.10.2"
   }
 }
