@@ -5,6 +5,7 @@ export type SavedUser = {
     bio: string;
     posts: SavedPost[];
     profilePicture: Base64String;
+	verified: boolean;
 }
 
 export type SavedPost = {
@@ -15,6 +16,7 @@ export type SavedPost = {
     likes: number;
     dislikes: number;
     content: string;
+
 }
 
 export type PostWithReplies = SavedPost & {

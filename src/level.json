@@ -82,6 +82,7 @@
                     "replyToId": 2
                 }
             ],
+			"verified": true,
             "profilePicture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAABGCAYAAABxLuKEAAABPElEQVR4Xu3awQ3CMAxGYToTazBUd4L9igRHCPqtGMjh4xylyfOz45Jux3U/Tn4vBDZg3lsBzCBbgAGmVkgZwxjG1AgwpsZLjRkZcz2fos73su815IuOvoX72IAZdL7AAPMgIJUGNQ4YYGrHH2MYw5gaAcbUeKkxjGFMjQBjarzUGMYwpkaAMTVeasysMS71B//gAQNMqRi5VxrdK0klqSSVSgSkUg2X4suYLxmTvmOkX0WsPl+cSqtvpHt9wMzWmO6IrD4fYxjzJJAeDoxhDGM+dnJSaYDnb2DSxjtdYHqsdz+3vfh2LxCYyeuO7oAw5lfHdXfkpJJUqjVajGEMY1pa8+VTKT1t0o10d77pfOk+4j4mnRCYyWKZRrgbdBpgxsx2vinp7gh3z5fugzGMSV15jmMMYxhTIzAYfQem7dPMKDF6vwAAAABJRU5ErkJggg=="
         },
         {

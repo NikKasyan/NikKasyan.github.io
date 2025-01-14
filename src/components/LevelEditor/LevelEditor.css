@@ -1,0 +1,38 @@
+.editor {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+	gap: 30px;
+}
+
+.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+    max-width: 100vw;
+    width: 100%;
+    gap: 20px;
+}
+.users {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+	max-width: 100vw;
+}
+
+textarea {
+    resize: none;
+}
+
+.level-editor-search {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}

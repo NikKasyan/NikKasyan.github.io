@@ -3,6 +3,7 @@ import { SavedPost, SavedUser } from "./SavedUser";
 
 export interface Level {
     background: string;
+	intro: string;
     users: User[];
     posts: Post[];
 }
@@ -13,6 +14,7 @@ export interface User {
     bio: string;
     posts: Post[];
     profilePicture: string;
+	verified: boolean;
 }
 
 
@@ -37,7 +39,8 @@ class LevelParser {
     parse(savedLevel: SavedLevel): Level {
         const level = this.parseFromSavedLevel(savedLevel)
         level.posts = Array.from(this.posts.values())
-        this.setReplies(level.users)
+		const savedPosts = savedLevel.users.flatMap(user => user.posts)
+        this.setReplies(level.users, savedPosts)
         this.setPosters(level.users, level.posts)
         return level
     }
@@ -62,6 +65,7 @@ class LevelParser {
 
     parseFromSavedLevel(savedLevel: SavedLevel): Level {
         return {
+			intro: savedLevel.intro,
             background: savedLevel.background,
             users: savedLevel.users.map((savedUser) => this.parseUser(savedUser)),
             posts: []
@@ -77,7 +81,8 @@ class LevelParser {
             name: savedUser.name,
             profilePicture: savedUser.profilePicture,
             bio: savedUser.bio ?? "",
-            posts: []
+            posts: [],
+			verified: savedUser.verified ?? false
         }
         this.users.set(savedUser.id, user)
         user.posts = savedUser.posts.map((savedPost) => this.parsePost(savedPost))
@@ -93,7 +98,7 @@ class LevelParser {
         const post: Post = {
             id: savedPost.id,
             timestamp: savedPost.timestamp ?? Date.now(),
-            poster: { id: savedPost.posterId, name: "", profilePicture: "", posts: [], bio: "" },
+            poster: { id: savedPost.posterId, name: "", profilePicture: "", posts: [], bio: "", verified: false },
             replyTo: savedPost.replyToId ? this.posts.get(savedPost.replyToId) : undefined,
             content: savedPost.content,
             likes: savedPost.likes ?? 0,
@@ -104,9 +109,20 @@ class LevelParser {
         return post
     }
 
-    setReplies(users: User[]) {
+    setReplies(users: User[], savedPosts: SavedPost[]) {
         users.forEach((user) => {
             user.posts.forEach((post) => {
+
+				if(post.replyTo === undefined) {
+					const savedPost = savedPosts.find((savedPost) => savedPost.id === post.id)
+					if (!savedPost) {
+						throw new Error("Post not found")
+					}
+					if (savedPost.replyToId) {
+						post.replyTo = this.posts.get(savedPost.replyToId)
+					}
+				}
+
                 if (post.replyTo) {
                     const replyToPost = this.posts.get(post.replyTo.id)
                     if (!replyToPost) {

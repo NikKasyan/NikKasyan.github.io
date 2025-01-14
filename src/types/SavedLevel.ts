@@ -2,20 +2,30 @@ import { SavedUser } from "./SavedUser";
 
 export interface SavedLevel {
     background: string;
+	intro: string;
+	decisions: string[];
     users: SavedUser[];
 }
 
 export const checkLevel = (level: unknown): level is SavedLevel => {
     if (!isObject(level)) {
-        throw new Error("Invalid file")
+        throw new Error("Invalid file, not an object")
     }
 
     if (typeof level.background !== "string") {
-        throw new Error("Invalid file")
+        throw new Error("Invalid file, background is not a string")
     }
+	
+	if(!Array.isArray(level.decisions)) {
+		throw new Error("Invalid file, decisions is not an array")
+	}
+
+	if(typeof level.intro !== "string") {
+		throw new Error("Invalid file, intro is not a string")
+	}
 
     if (!hasKey(level, "users")) {
-        throw new Error("Invalid file")
+        throw new Error("Invalid file, missing users")
     }
 
     const users = level.users
