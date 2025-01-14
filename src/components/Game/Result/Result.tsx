@@ -6,7 +6,6 @@ import { getSystemTheme } from "../../../util/systemTheme";
 import { SURVEY_INTERVAL, TIME_INCREMENT, useGameStateManager } from "../phone/GameStateContext";
 import { Graph } from "./Graph";
 import "./Result.css";
-import { unwrap } from "solid-js/store";
 
 enum ResultState {
 	BACKGROUND = "Background",

@@ -48,7 +48,6 @@ export const LevelContextProvider: ParentComponent<LevelContextProviderProps> = 
 export const createLevelContext = (level: SavedLevel, setLevel: SetStoreFunction<SavedLevel>): LevelContextType => {
 
 	const updateLevel: UpdateLevelFunction = (updateLevelFn) => {
-		const before = [...level.users]
 		if (!isUpdateFunction(updateLevelFn)) {
 			setLevel(updateLevelFn)
 		} else {
@@ -57,7 +56,7 @@ export const createLevelContext = (level: SavedLevel, setLevel: SetStoreFunction
 			}))
 		}
 
-		checkUsersUnique(level.users, before)
+		checkUsersUnique(level.users)
 		saveEditorLevel(level)
 	}
 
@@ -70,7 +69,8 @@ export const createLevelContext = (level: SavedLevel, setLevel: SetStoreFunction
 				name: randomName(),
 				bio: "",
 				posts: [],
-				profilePicture: createRandomAvatar()
+				profilePicture: createRandomAvatar(),
+				verified: false
 			})
 		})
 	}
@@ -103,7 +103,7 @@ export const createLevelContext = (level: SavedLevel, setLevel: SetStoreFunction
 
 }
 
-export const checkUsersUnique = (users: SavedUser[], beforeUsers?: SavedUser[]) => {
+export const checkUsersUnique = (users: SavedUser[]) => {
 	const ids = new Set<number>()
 	for (const user of users) {
 		if (ids.has(user.id)) {

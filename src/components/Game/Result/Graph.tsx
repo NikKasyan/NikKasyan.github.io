@@ -1,9 +1,9 @@
-import {Component, createEffect, onCleanup, onMount} from "solid-js";
-import {Level, Post, User} from "../../../types/Level";
-import "./Result.css";
 import * as d3 from "d3";
-import {usePreferences} from "../../../theme/PreferencesContext";
-import {getSystemTheme} from "../../../util/systemTheme";
+import { Component, onMount } from "solid-js";
+import { usePreferences } from "../../../theme/PreferencesContext";
+import { Level, Post, User } from "../../../types/Level";
+import { getSystemTheme } from "../../../util/systemTheme";
+import "./Result.css";
 
 interface Data {
     nodes: UserNode[],
@@ -15,6 +15,10 @@ interface UserNode {
     label: string,
     iconHref: string,
     radius: number,
+	fx?: number | null,
+	fy?: number | null,
+	x?: number,
+	y?: number,
 }
 
 interface Link {
@@ -48,11 +52,11 @@ export const Graph: Component<GraphProps> = (props) => {
         // Create the force simulation
         const simulation = d3.forceSimulation(data.nodes)
             .force("link", d3.forceLink(data.links)
-                .id(d => d.id)
+                .id(d => (d as any).id)
                 .distance(200))
             .force("charge", d3.forceManyBody().strength(-500))
             .force("center", d3.forceCenter(width / 2, height / 4))
-            .force("collision", d3.forceCollide().radius(d => d.radius + 10));
+            .force("collision", d3.forceCollide().radius(d => (d as any).radius + 10));
 
         // Create container for zoom/pan
         const container = svg.append("g");
@@ -66,7 +70,7 @@ export const Graph: Component<GraphProps> = (props) => {
             .on("zoom", (event) => {
                 container.attr("transform", event.transform);
             });
-        svg.call(zoom);
+        svg.call(zoom as any);
 
         // Create links
         const links = container.selectAll(".link")
@@ -83,9 +87,9 @@ export const Graph: Component<GraphProps> = (props) => {
             .join("g")
             .attr("class", "node")
             .call(d3.drag()
-                .on("start", dragStarted)
-                .on("drag", dragging)
-                .on("end", dragEnded) as any);
+                .on("start", dragStarted as any)
+                .on("drag", dragging as any)
+                .on("end", dragEnded as any) as any);
 
         svg.append("defs")
             .append("clipPath")
@@ -115,10 +119,10 @@ export const Graph: Component<GraphProps> = (props) => {
         // Update positions on each tick
         simulation.on("tick", () => {
             links
-                .attr("x1", d => (d.source as UserNode).x!)
-                .attr("y1", d => (d.source as UserNode).y!)
-                .attr("x2", d => (d.target as UserNode).x!)
-                .attr("y2", d => (d.target as UserNode).y!);
+                .attr("x1", d => (d.source as any).x!)
+                .attr("y1", d => (d.source as any).y!)
+                .attr("x2", d => (d.target as any).x!)
+                .attr("y2", d => (d.target as any).y!);
 
             nodes
                 .attr("transform", d => `translate(${d.x},${d.y})`);
@@ -147,7 +151,7 @@ export const Graph: Component<GraphProps> = (props) => {
             .attr("class", "reset-zoom")
             .text("Reset Zoom")
             .on("click", () => {
-                svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+                svg.transition().duration(500).call(zoom.transform as any, d3.zoomIdentity);
             });
 
         // Handle window resize
