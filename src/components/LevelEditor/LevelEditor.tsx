@@ -51,7 +51,7 @@ export const LevelEditor = () => {
 
 					<h2>Users</h2>
 					<div class="level-editor-search">
-						<span>Click profile picture to access and edit posts and profile</span>
+						<span style={{"font-style": "italic"}}>Click profile picture to access and edit posts and profile</span>
 						<div style={{ display: "flex", "justify-content": "center", gap: "10px" }}>
 							<input type="text" placeholder="Search" value={search()} onInput={(e) => setSearch(e.target.value)} />
 							<button onClick={useLevelContext().createNewUser}>Add User</button>

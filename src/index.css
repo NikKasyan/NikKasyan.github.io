@@ -69,7 +69,6 @@ textarea, input {
 	color: var(--on-surface);
 	border-radius: 5px;
 	border: none;
-	text-align: center;
 	text-decoration: none;
 }
 

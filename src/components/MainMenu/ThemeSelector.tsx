@@ -11,8 +11,8 @@ export const ThemeSelector = () => {
         })
     }
     return (
-        <div style={{display: "flex", "flex-direction": "row", gap: "10px"}}>
-                <label style={{margin: "auto"}}>Choose Theme</label>
+        <div style={{display: "flex", "flex-direction": "row", gap: "5px", "justify-content": "center"}}>
+                <label style={{margin: "auto 0"}}>Choose Theme</label>
                 <select value={currentTheme} onChange={(e) => updateTheme(e.target.value as any)}>
                     <For each={["light", "dark", "system"]}>
                         {theme => <option value={theme} selected={currentTheme === theme }>{theme}</option>}

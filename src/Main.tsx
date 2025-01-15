@@ -1,4 +1,4 @@
-import { A, Route, Router } from "@solidjs/router";
+import { A, Route, HashRouter as Router } from "@solidjs/router";
 import { LevelEditor } from "./components/LevelEditor/LevelEditor";
 import { MainMenu } from "./components/MainMenu/MainMenu";
 import { Phone as PhoneComponent } from "./components/Game/phone/Phone";

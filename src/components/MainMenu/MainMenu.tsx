@@ -23,8 +23,8 @@ export const MainMenu = () => {
                 </p>
                 <LoadLevel />
                 <button onClick={() => navigate("/editor")}>Create Level</button>
+				<ThemeSelector />
             </div>
-            <ThemeSelector />
         </div>
     )
 }
