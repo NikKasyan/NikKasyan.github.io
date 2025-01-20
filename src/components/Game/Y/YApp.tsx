@@ -42,7 +42,7 @@ export const YApp = () => {
 
 const DefaultProfile = () => {
 	const gameStateManager = useGameStateManager()
-	const bottomPosts = gameStateManager.getBottomPosts()
+	const bottomPosts = gameStateManager.getBottomPosts().sort((a, b) => (b.likes + b.dislikes) - (a.likes + a.dislikes))
 	return (
 		<For each={bottomPosts}>
 			{(post) => <PostComponent post={post} />}

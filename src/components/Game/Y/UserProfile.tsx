@@ -1,5 +1,5 @@
 import { useNavigate } from "@solidjs/router";
-import { Component, For, onCleanup, Show } from "solid-js";
+import { Component, createMemo, For, onCleanup, Show } from "solid-js";
 
 import { User } from "../../../types/Level";
 import { PostComponent } from "./PostComponent";
@@ -14,7 +14,10 @@ export const UserProfile: Component<UserProfileProps> = (props) => {
     if (!props.user) {
         return <RedirectingProfile />
     }
-
+	const posts = createMemo(() => {
+		return [...(props.user?.posts ?? [])].sort((a, b) => b.timestamp - a.timestamp)
+	})
+	
     return (
         <div class="user-profile">
             <div class="user-profile-info">
@@ -28,7 +31,7 @@ export const UserProfile: Component<UserProfileProps> = (props) => {
             </div>
 			</Show>
             <div class="user-profile-posts">
-                <For each={props.user.posts}>
+                <For each={posts()}>
                     {(post) => <PostComponent post={post} />}
                 </For>
             </div>

@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { Component, createEffect, createSignal, For, Match, onMount, Signal, Switch } from "solid-js";
+import { Component, createEffect, createSignal, For, Match, onMount, Show, Signal, Switch } from "solid-js";
 import { usePreferences } from "../../../theme/PreferencesContext";
 import { SavedGameState } from "../../../types/SavedGameState";
 import { getSystemTheme } from "../../../util/systemTheme";
@@ -112,7 +112,7 @@ const Decisions: Component<DecisionProps> = (props) => {
 	for (let i = 0; i < gameStateManager.gameState.clickedUsers.length; i += SURVEY_INTERVAL / TIME_INCREMENT) {
 		const chunk = gameStateManager.gameState.clickedUsers.slice(i, i + SURVEY_INTERVAL / TIME_INCREMENT)
 
-		chunkedDiscoveredUsers.push([...new Set(chunk)])
+		chunkedDiscoveredUsers.push([...new Set(chunk)].filter(userId => chunkedDiscoveredUsers.some(chunk => chunk.includes(userId)) === false))
 	}
 	return (
 		<div class="decisions">
@@ -149,6 +149,10 @@ const DiscoveredUsers: Component<DiscoveredUsersProps> = (props) => {
 				Discovered before {props.index + 1}. decision
 			</summary>
 			<div class="discovered-profiles-list">
+				
+				<Show when={props.users.length === 0}>
+							<div style={{"font-style": "italic"}}>No new profiles discovered.</div>
+				</Show>
 				<For each={props.users}>
 					{(userId) => (
 						<div class="discovered-profile">
