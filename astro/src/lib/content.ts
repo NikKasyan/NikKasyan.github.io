@@ -16,6 +16,8 @@ type SliderSlideRecord = {
   order?: number;
   image?: {
     url?: string;
+    positionX?: number;
+    positionY?: number;
   };
 };
 
@@ -39,6 +41,8 @@ export type EventDocument = {
   venueAddress?: string;
   organizer?: string;
   titleImage?: string;
+  titleImagePositionX?: number;
+  titleImagePositionY?: number;
   sliders: string[];
   body: string;
   html: string;
@@ -76,6 +80,8 @@ export type SliderImage = {
   src: string;
   alt: string;
   caption?: string;
+  positionX?: number;
+  positionY?: number;
 };
 
 type ParsedMarkdown = {
@@ -184,6 +190,15 @@ function resolveMediaUrl(value: unknown, sourceDir: string) {
   return withBase(`/media/${assetPath}`);
 }
 
+function toOptionalNumber(value: unknown) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : undefined;
+  }
+  return undefined;
+}
+
 async function renderMarkdown(body: string): Promise<string> {
   return await marked.parse(body);
 }
@@ -248,6 +263,8 @@ export async function getEvents(): Promise<EventDocument[]> {
         venueAddress: frontmatter.venue_address ? String(frontmatter.venue_address) : undefined,
         organizer: frontmatter.organizer ? String(frontmatter.organizer) : undefined,
         titleImage: resolveMediaUrl(frontmatter.title_image, "events"),
+        titleImagePositionX: toOptionalNumber(frontmatter.title_image_position_x),
+        titleImagePositionY: toOptionalNumber(frontmatter.title_image_position_y),
         sliders: toStringArray(frontmatter.sliders),
         body: normalizedBody,
         html: await renderMarkdown(normalizedBody),
@@ -327,7 +344,9 @@ export async function getSliderImagesByIds(sliderIds: string[]) {
       .map((slide, index) => ({
         src: String(slide.image?.url ?? ""),
         alt: slide.title ? String(slide.title) : `${parsed.title ?? "Slider"} image ${index + 1}`,
-        caption: slide.title && !/^Slider \d+ - image$/i.test(String(slide.title)) ? String(slide.title) : undefined
+        caption: slide.title && !/^Slider \d+ - image$/i.test(String(slide.title)) ? String(slide.title) : undefined,
+        positionX: toOptionalNumber(slide.image?.positionX),
+        positionY: toOptionalNumber(slide.image?.positionY)
       } satisfies SliderImage));
 
     if (images.length > 0) {

@@ -1109,11 +1109,9 @@ main {
   background: rgba(255, 251, 245, 0.92);
 }
 
-.admin-slide-card img {
+.admin-slide-preview {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 12px;
+  min-width: 0;
 }
 
 .admin-slide-copy {
@@ -1318,17 +1316,106 @@ main {
 
 .admin-slider-preview-grid img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   border-radius: 10px;
 }
 
 .admin-title-image-preview img {
   width: min(100%, 18rem);
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-soft);
+}
+
+.admin-crop-stage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(225, 219, 208, 0.9);
+  cursor: grab;
+  touch-action: none;
+  line-height: 0;
+}
+
+.admin-crop-stage--large {
+  max-width: 24rem;
+}
+
+.admin-crop-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.admin-crop-stage-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.admin-crop-window {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 999px rgba(115, 111, 104, 0.46),
+    0 0 0 1px rgba(255, 250, 242, 0.95) inset,
+    0 10px 24px rgba(17, 13, 10, 0.16);
+  cursor: move;
+}
+
+.admin-crop-handle {
+  position: absolute;
+  right: 0.35rem;
+  bottom: 0.35rem;
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.95);
+  box-shadow: 0 0 0 1px rgba(23, 18, 15, 0.25);
+  cursor: nwse-resize;
+}
+
+.admin-crop-meta {
+  position: absolute;
+  left: 0.65rem;
+  bottom: 0.65rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(23, 18, 15, 0.72);
+  color: #fff8ef;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.admin-image-frame-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.admin-image-frame-controls {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.admin-image-frame-controls small {
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+}
+
+.admin-slide-frame-controls {
+  margin-top: 0.35rem;
 }
 
 @media (max-width: 900px) {
@@ -1342,5 +1429,9 @@ main {
 
   .admin-slider-preview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-image-frame-editor {
+    grid-template-columns: 1fr;
   }
 }

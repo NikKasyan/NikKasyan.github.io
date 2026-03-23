@@ -91,6 +91,9 @@ const nextNumericPrefix = (records) => {
 
 const uniqueId = () => `${Date.now()}${String(uidCounter++).padStart(3, '0')}`;
 const logoMediaUrl = '/media/assets/Logo-focus-no-background-black.png';
+const clampPercent = (value) => Math.max(0, Math.min(100, Number(value)));
+const defaultCropBox = { x: 12, y: 12, width: 76, height: 76 };
+const minCropSize = 24;
 
 const parseMarkdownMeta = (value) => {
   const match = value.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
@@ -186,6 +189,12 @@ const parseEventRecord = (record) => {
       venue_address: String(fields.venue_address || ''),
       organizer: String(fields.organizer || ''),
       title_image: String(fields.title_image || ''),
+      title_image_position_x: fields.title_image_position_x === undefined ? 50 : clampPercent(fields.title_image_position_x),
+      title_image_position_y: fields.title_image_position_y === undefined ? 50 : clampPercent(fields.title_image_position_y),
+      title_image_box_x: fields.title_image_box_x === undefined ? defaultCropBox.x : clampPercent(fields.title_image_box_x),
+      title_image_box_y: fields.title_image_box_y === undefined ? defaultCropBox.y : clampPercent(fields.title_image_box_y),
+      title_image_box_width: fields.title_image_box_width === undefined ? defaultCropBox.width : clampPercent(fields.title_image_box_width),
+      title_image_box_height: fields.title_image_box_height === undefined ? defaultCropBox.height : clampPercent(fields.title_image_box_height),
       tags: Array.isArray(fields.tags) ? fields.tags : [],
       sliders: Array.isArray(fields.sliders) ? fields.sliders : [],
       body: parsed.body
@@ -209,6 +218,12 @@ const serializeEventRecord = (data) => {
   if (data.venue_address) lines.push(`venue_address: "${String(data.venue_address).replaceAll('"', '\\"')}"`);
   if (data.organizer) lines.push(`organizer: "${String(data.organizer).replaceAll('"', '\\"')}"`);
   if (data.title_image) lines.push(`title_image: "${String(data.title_image).replaceAll('"', '\\"')}"`);
+  if (data.title_image) lines.push(`title_image_position_x: ${clampPercent(data.title_image_position_x ?? 50)}`);
+  if (data.title_image) lines.push(`title_image_position_y: ${clampPercent(data.title_image_position_y ?? 50)}`);
+  if (data.title_image) lines.push(`title_image_box_x: ${clampPercent(data.title_image_box_x ?? defaultCropBox.x)}`);
+  if (data.title_image) lines.push(`title_image_box_y: ${clampPercent(data.title_image_box_y ?? defaultCropBox.y)}`);
+  if (data.title_image) lines.push(`title_image_box_width: ${clampPercent(data.title_image_box_width ?? defaultCropBox.width)}`);
+  if (data.title_image) lines.push(`title_image_box_height: ${clampPercent(data.title_image_box_height ?? defaultCropBox.height)}`);
   if ((data.sliders || []).length > 0) {
     lines.push('sliders:');
     for (const sliderId of data.sliders) lines.push(`  - "${String(sliderId).replaceAll('"', '\\"')}"`);
@@ -241,7 +256,13 @@ const createSliderSlide = (sliderId, sliderSlug, fileName, index) => ({
   order: index,
   sliderIds: [sliderId],
   image: {
-    url: normalizeSlideUrl(fileName)
+    url: normalizeSlideUrl(fileName),
+    positionX: 50,
+    positionY: 50,
+    boxX: defaultCropBox.x,
+    boxY: defaultCropBox.y,
+    boxWidth: defaultCropBox.width,
+    boxHeight: defaultCropBox.height
   }
 });
 
@@ -257,6 +278,12 @@ const eventTemplate = (slug) => serializeEventRecord({
   venue_address: '',
   organizer: '',
   title_image: '',
+  title_image_position_x: 50,
+  title_image_position_y: 50,
+  title_image_box_x: defaultCropBox.x,
+  title_image_box_y: defaultCropBox.y,
+  title_image_box_width: defaultCropBox.width,
+  title_image_box_height: defaultCropBox.height,
   tags: ['Symposium'],
   sliders: [],
   body: ''
@@ -359,25 +386,26 @@ const setMessage = (message, tone = 'info') => {
   statusNode.dataset.tone = tone;
 };
 
-const updateRecordSource = (record, nextSource) => {
+const updateRecordSource = (record, nextSource, options = {}) => {
+  const { renderUi = true } = options;
   record.source = nextSource;
   record.isDirty = true;
   refreshRecordMeta(record);
-  render();
+  if (renderUi) render();
 };
 
-const updateEventField = (record, key, value) => {
+const updateEventField = (record, key, value, options = {}) => {
   const parsed = parseEventRecord(record);
   const data = parsed.data;
   data[key] = value;
-  updateRecordSource(record, serializeEventRecord(data));
+  updateRecordSource(record, serializeEventRecord(data), options);
 };
 
-const updateJsonField = (record, mutate) => {
+const updateJsonField = (record, mutate, options = {}) => {
   const parsed = parseJsonRecord(record);
   const data = parsed.data;
   mutate(data);
-  updateRecordSource(record, `${JSON.stringify(data, null, 2)}\n`);
+  updateRecordSource(record, `${JSON.stringify(data, null, 2)}\n`, options);
 };
 
 const readFileAsUint8Array = async (file) => {
@@ -480,6 +508,7 @@ const getAvailableSlideAssets = () => {
 };
 
 const getKnownSlideNames = () => new Set(getAvailableSlideAssets().map((asset) => asset.fileName));
+const getAssetPreviewSrc = (url) => getAvailableSlideAssets().find((asset) => asset.mediaUrl === url)?.previewUrl || url;
 
 const getSliderPreviewEntries = (sliderIds) => {
   const selected = new Set((sliderIds || []).map((value) => String(value)));
@@ -501,9 +530,121 @@ const getSliderPreviewEntries = (sliderIds) => {
 const getTitleImagePreviewUrl = (value) => {
   const trimmed = String(value || '').trim();
   if (!trimmed) return logoMediaUrl;
-  if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('/')) return trimmed;
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
+  if (trimmed.startsWith('/')) return getAssetPreviewSrc(trimmed);
   return `/media/events/${trimmed.replace(/^\.\/+/, '').replace(/^\.\.\//, '')}`;
 };
+
+const getObjectPosition = (x, y) => `${clampPercent(x ?? 50)}% ${clampPercent(y ?? 50)}%`;
+
+const normalizeCropBox = (box) => {
+  const width = Math.max(minCropSize, Math.min(100, clampPercent(box.width ?? defaultCropBox.width)));
+  const height = Math.max(minCropSize, Math.min(100, clampPercent(box.height ?? defaultCropBox.height)));
+  const x = Math.max(0, Math.min(100 - width, clampPercent(box.x ?? defaultCropBox.x)));
+  const y = Math.max(0, Math.min(100 - height, clampPercent(box.y ?? defaultCropBox.y)));
+  return { x, y, width, height };
+};
+
+const applyCropBoxToStage = (stage, state) => {
+  const cropWindow = stage?.querySelector('.admin-crop-window');
+  const cropMeta = stage?.querySelector('[data-crop-meta]');
+  if (!cropWindow) return;
+  cropWindow.style.left = `${state.boxX}%`;
+  cropWindow.style.top = `${state.boxY}%`;
+  cropWindow.style.width = `${state.boxWidth}%`;
+  cropWindow.style.height = `${state.boxHeight}%`;
+  if (cropMeta) cropMeta.textContent = `box: ${Math.round(state.boxX)}% ${Math.round(state.boxY)}% ${Math.round(state.boxWidth)}% ${Math.round(state.boxHeight)}%`;
+};
+
+const bindCropStage = (stage, getState, setState) => {
+  if (!stage) return;
+  const cropWindow = stage.querySelector('.admin-crop-window');
+  const resizeHandle = stage.querySelector('[data-crop-handle]');
+  let interaction = null;
+  let currentState = getState();
+
+  applyCropBoxToStage(stage, currentState);
+
+  const commitState = (nextState, persist = false) => {
+    currentState = nextState;
+    applyCropBoxToStage(stage, currentState);
+    if (persist) setState(currentState);
+  };
+
+  const onPointerMove = (event) => {
+    if (!interaction) return;
+    const rect = stage.getBoundingClientRect();
+    const dx = (event.clientX - interaction.startX) / rect.width * 100;
+    const dy = (event.clientY - interaction.startY) / rect.height * 100;
+    let box = {
+      x: interaction.startState.boxX,
+      y: interaction.startState.boxY,
+      width: interaction.startState.boxWidth,
+      height: interaction.startState.boxHeight
+    };
+
+    if (interaction.mode === 'move') {
+      box.x += dx;
+      box.y += dy;
+    } else if (interaction.mode === 'resize') {
+      box.width += dx;
+      box.height += dy;
+    }
+
+    box = normalizeCropBox(box);
+    const nextState = {
+      ...interaction.startState,
+      boxX: box.x,
+      boxY: box.y,
+      boxWidth: box.width,
+      boxHeight: box.height,
+      positionX: box.x + box.width / 2,
+      positionY: box.y + box.height / 2
+    };
+    commitState(nextState, false);
+  };
+
+  const finishInteraction = () => {
+    if (!interaction) return;
+    commitState(currentState, true);
+    stage.classList.remove('is-dragging');
+    interaction = null;
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerup', finishInteraction);
+    window.removeEventListener('pointercancel', finishInteraction);
+  };
+
+  const startInteraction = (event, mode) => {
+    event.preventDefault();
+    interaction = {
+      mode,
+      startX: event.clientX,
+      startY: event.clientY,
+      startState: currentState
+    };
+    stage.classList.add('is-dragging');
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', finishInteraction);
+    window.addEventListener('pointercancel', finishInteraction);
+  };
+
+  cropWindow?.addEventListener('pointerdown', (event) => {
+    if (event.target === resizeHandle) return;
+    startInteraction(event, 'move');
+  });
+
+  resizeHandle?.addEventListener('pointerdown', (event) => startInteraction(event, 'resize'));
+};
+
+const buildCropStage = (src, position, className = '', box = defaultCropBox, dataAttrs = '') => `
+  <div class="admin-crop-stage${className ? ` ${className}` : ''}" ${dataAttrs}>
+    <img class="admin-crop-stage-image" src="${escapeHtml(src)}" alt="" draggable="false" style="object-position: ${escapeHtml(position)};" />
+    <div class="admin-crop-window" style="left: ${escapeHtml(String(box.x))}%; top: ${escapeHtml(String(box.y))}%; width: ${escapeHtml(String(box.width))}%; height: ${escapeHtml(String(box.height))}%;">
+      <button type="button" class="admin-crop-handle" data-crop-handle aria-label="Resize selection"></button>
+    </div>
+    <div class="admin-crop-meta" data-crop-meta>box: ${Math.round(box.x)}% ${Math.round(box.y)}% ${Math.round(box.width)}% ${Math.round(box.height)}%</div>
+  </div>
+`;
 
 const getSliderOptions = () => state.collections.sliders
   .map((record) => ({
@@ -539,6 +680,13 @@ const applyEventForm = (record) => {
   const sliderOptions = getSliderOptions();
   const availableSlideAssets = getAvailableSlideAssets();
   const titleImagePreviewUrl = getTitleImagePreviewUrl(data.title_image);
+  const titleImagePosition = getObjectPosition(data.title_image_position_x, data.title_image_position_y);
+  const titleImageBox = {
+    x: clampPercent(data.title_image_box_x ?? defaultCropBox.x),
+    y: clampPercent(data.title_image_box_y ?? defaultCropBox.y),
+    width: clampPercent(data.title_image_box_width ?? defaultCropBox.width),
+    height: clampPercent(data.title_image_box_height ?? defaultCropBox.height)
+  };
 
   formHost.innerHTML = `
     <div class="admin-form-grid">
@@ -563,9 +711,15 @@ const applyEventForm = (record) => {
           <div class="admin-select-list">${availableSlideAssets.length > 0 ? [`<label class="admin-check-option"><input type="radio" name="event-title-image" data-title-image-option="" ${!data.title_image ? 'checked' : ''} /><span>No image</span></label>`, ...availableSlideAssets.map((asset) => `<label class="admin-image-option"><input type="radio" name="event-title-image" data-title-image-option="${escapeHtml(asset.mediaUrl)}" ${data.title_image === asset.mediaUrl ? 'checked' : ''} /><img src="${escapeHtml(asset.previewUrl || asset.mediaUrl)}" alt="" /><span>${escapeHtml(asset.fileName)}</span></label>`)].join('') : '<p class="empty-state">No slide assets available.</p>'}</div>
         </div>
       </div>
-      <div class="admin-form-full admin-title-image-preview"><img src="${escapeHtml(titleImagePreviewUrl)}" alt="" /></div>
+      <div class="admin-form-full admin-image-frame-editor">
+        <div class="admin-title-image-preview">${buildCropStage(titleImagePreviewUrl, titleImagePosition, 'admin-crop-stage--large', titleImageBox, 'data-title-crop-stage')}</div>
+        <div class="admin-image-frame-controls">
+          <p class="admin-note">Drag inside the preview to choose the visible area.</p>
+          <p class="admin-note"><code>box: ${titleImageBox.x}% ${titleImageBox.y}% ${titleImageBox.width}% ${titleImageBox.height}%</code></p>
+        </div>
+      </div>
       <div class="archive-control admin-form-full"><span>Sliders</span><div class="admin-select-list">${sliderOptions.length > 0 ? sliderOptions.map((option) => `<label class="admin-check-option"><input type="checkbox" data-slider-option="${escapeHtml(option.id)}" ${data.sliders.includes(option.id) ? 'checked' : ''} /><span>${escapeHtml(option.title)} <code>${escapeHtml(option.id)}</code></span></label>`).join('') : '<p class="empty-state">No sliders available.</p>'}</div></div>
-      <div class="admin-form-full admin-slider-preview-wrap"><span class="admin-preview-label">Slideshow Preview</span><div class="admin-slider-preview-list">${getSliderPreviewEntries(data.sliders).length > 0 ? getSliderPreviewEntries(data.sliders).map((slider) => `<section class="admin-slider-preview"><h3>${escapeHtml(slider.title)}</h3><div class="admin-slider-preview-grid">${slider.slides.slice(0, 6).map((slide) => `<img src="${escapeHtml(slide.image?.url || '')}" alt="" />`).join('')}</div></section>`).join('') : '<p class="empty-state">Select one or more sliders to preview their images.</p>'}</div></div>
+      <div class="admin-form-full admin-slider-preview-wrap"><span class="admin-preview-label">Slideshow Preview</span><div class="admin-slider-preview-list">${getSliderPreviewEntries(data.sliders).length > 0 ? getSliderPreviewEntries(data.sliders).map((slider) => `<section class="admin-slider-preview"><h3>${escapeHtml(slider.title)}</h3><div class="admin-slider-preview-grid">${slider.slides.slice(0, 6).map((slide) => buildCropStage(getAssetPreviewSrc(slide.image?.url || ''), getObjectPosition(slide.image?.positionX, slide.image?.positionY), '', normalizeCropBox({ x: slide.image?.boxX ?? defaultCropBox.x, y: slide.image?.boxY ?? defaultCropBox.y, width: slide.image?.boxWidth ?? defaultCropBox.width, height: slide.image?.boxHeight ?? defaultCropBox.height }))).join('')}</div></section>`).join('') : '<p class="empty-state">Select one or more sliders to preview their images.</p>'}</div></div>
       <label class="archive-control admin-form-full"><span>Tags</span><input data-list-field="tags" value="${escapeHtml((data.tags || []).join(', '))}" /></label>
       <label class="archive-control admin-form-full"><span>Body</span><textarea data-field="body" class="admin-form-textarea">${escapeHtml(data.body || '')}</textarea></label>
     </div>
@@ -593,6 +747,8 @@ const applyEventForm = (record) => {
   formHost.querySelectorAll('[data-title-image-option]').forEach((node) => {
     node.addEventListener('change', () => updateEventField(record, 'title_image', node.dataset.titleImageOption || ''));
   });
+
+  const titleCropStage = formHost.querySelector('[data-title-crop-stage]');
 
   formHost.querySelector('[data-title-image-upload]')?.addEventListener('change', async (event) => {
     const files = Array.from(event.target.files || []);
@@ -623,6 +779,33 @@ const applyEventForm = (record) => {
       setMessage(`Added ${created.length} image file${created.length === 1 ? '' : 's'} to the in-memory asset library.`, 'success');
     }
   });
+
+  bindCropStage(
+    titleCropStage,
+    () => {
+      const parsed = parseEventRecord(record).data;
+      return {
+        x: clampPercent(parsed.title_image_position_x ?? 50),
+        y: clampPercent(parsed.title_image_position_y ?? 50),
+        positionX: clampPercent(parsed.title_image_position_x ?? 50),
+        positionY: clampPercent(parsed.title_image_position_y ?? 50),
+        boxX: clampPercent(parsed.title_image_box_x ?? defaultCropBox.x),
+        boxY: clampPercent(parsed.title_image_box_y ?? defaultCropBox.y),
+        boxWidth: clampPercent(parsed.title_image_box_width ?? defaultCropBox.width),
+        boxHeight: clampPercent(parsed.title_image_box_height ?? defaultCropBox.height)
+      };
+    },
+    (nextState) => {
+      const parsed = parseEventRecord(record).data;
+      parsed.title_image_position_x = nextState.positionX;
+      parsed.title_image_position_y = nextState.positionY;
+      parsed.title_image_box_x = nextState.boxX;
+      parsed.title_image_box_y = nextState.boxY;
+      parsed.title_image_box_width = nextState.boxWidth;
+      parsed.title_image_box_height = nextState.boxHeight;
+      updateRecordSource(record, serializeEventRecord(parsed), { renderUi: false });
+    }
+  );
 
   formHost.querySelector('[data-venue-select]')?.addEventListener('change', (event) => {
     const selectedVenue = event.target.value;
@@ -693,12 +876,24 @@ const renderSliderForm = (record) => {
       const slideCards = slides.map((slide, index) => {
         const imageUrl = slide?.image?.url || '';
         const matched = availableSlideAssets.find((asset) => asset.mediaUrl === imageUrl);
+        const slidePosition = getObjectPosition(slide?.image?.positionX, slide?.image?.positionY);
+        const slideBox = normalizeCropBox({
+          x: slide?.image?.boxX ?? defaultCropBox.x,
+          y: slide?.image?.boxY ?? defaultCropBox.y,
+          width: slide?.image?.boxWidth ?? defaultCropBox.width,
+          height: slide?.image?.boxHeight ?? defaultCropBox.height
+        });
         return `
           <article class="admin-slide-card">
-            <img src="${escapeHtml(matched?.previewUrl || imageUrl || logoMediaUrl)}" alt="" />
+            <div class="admin-slide-preview">
+              ${buildCropStage(matched?.previewUrl || imageUrl || logoMediaUrl, slidePosition, '', slideBox, `data-slide-crop-stage="${index}"`)}
+            </div>
             <div class="admin-slide-copy">
               <strong>${escapeHtml(slide.title || `Slide ${index + 1}`)}</strong>
               <span>${escapeHtml(matched?.fileName || imageUrl || 'No image')}</span>
+              <div class="admin-image-frame-controls admin-slide-frame-controls">
+                <p class="admin-note">Drag inside the preview to choose the visible area.</p>
+              </div>
             </div>
             <div class="admin-slide-actions">
               <button type="button" class="slider-button admin-secondary" data-slide-move="up" data-slide-index="${index}" ${index === 0 ? 'disabled' : ''}>Up</button>
@@ -774,6 +969,38 @@ const renderSliderForm = (record) => {
           slides.splice(target, 0, slide);
           slides.forEach((entry, order) => { entry.order = order; });
         }));
+      });
+
+      host.querySelectorAll('[data-slide-crop-stage]').forEach((node) => {
+        const index = Number(node.dataset.slideCropStage);
+        bindCropStage(
+          node,
+          () => {
+            const parsed = parseJsonRecord(currentRecord).data;
+            const slides = Array.isArray(parsed.slides) ? parsed.slides : [];
+            const slide = slides[index];
+            return {
+              positionX: clampPercent(slide?.image?.positionX ?? 50),
+              positionY: clampPercent(slide?.image?.positionY ?? 50),
+              boxX: clampPercent(slide?.image?.boxX ?? defaultCropBox.x),
+              boxY: clampPercent(slide?.image?.boxY ?? defaultCropBox.y),
+              boxWidth: clampPercent(slide?.image?.boxWidth ?? defaultCropBox.width),
+              boxHeight: clampPercent(slide?.image?.boxHeight ?? defaultCropBox.height)
+            };
+          },
+          (nextState) => updateJsonField(currentRecord, (next) => {
+            const slides = ensureSlides(next);
+            const slide = slides[index];
+            if (!slide) return;
+            if (!slide.image || typeof slide.image !== 'object') slide.image = {};
+            slide.image.positionX = nextState.positionX;
+            slide.image.positionY = nextState.positionY;
+            slide.image.boxX = nextState.boxX;
+            slide.image.boxY = nextState.boxY;
+            slide.image.boxWidth = nextState.boxWidth;
+            slide.image.boxHeight = nextState.boxHeight;
+          }, { renderUi: false })
+        );
       });
 
       const zone = host.querySelector('#admin-slide-zone');

@@ -5,9 +5,10 @@ type Props = {
   lead?: string;
   imageSrc?: string;
   imageAlt?: string;
+  imagePosition?: string;
 };
 
-const { eyebrow, title, lead, imageSrc, imageAlt } = Astro.props;
+const { eyebrow, title, lead, imageSrc, imageAlt, imagePosition } = Astro.props;
 const heroImageSrc = imageSrc || "/media/assets/Logo-focus-no-background-black.png";
 const heroImageClass = imageSrc ? "page-hero-preview" : "page-hero-preview is-logo";
 ---
@@ -21,7 +22,7 @@ const heroImageClass = imageSrc ? "page-hero-preview" : "page-hero-preview is-lo
     </div>
 
     <div class="page-hero-media">
-      <img class={heroImageClass} src={heroImageSrc} alt={imageAlt || title} />
+      <img class={heroImageClass} src={heroImageSrc} alt={imageAlt || title} style={imagePosition ? `object-position: ${imagePosition};` : undefined} />
     </div>
   </div>
 </section>

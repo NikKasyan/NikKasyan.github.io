@@ -14,6 +14,9 @@ const formattedDate = new Intl.DateTimeFormat("en-AT", {
 }).format(new Date(event.date));
 const previewImage = event.titleImage || withBase("/media/assets/Logo-focus-no-background-black.png");
 const previewClass = event.titleImage ? "event-card-preview" : "event-card-preview is-logo";
+const previewPosition = event.titleImagePositionX !== undefined || event.titleImagePositionY !== undefined
+  ? `${event.titleImagePositionX ?? 50}% ${event.titleImagePositionY ?? 50}%`
+  : undefined;
 ---
 
 <article class="event-card">
@@ -38,7 +41,7 @@ const previewClass = event.titleImage ? "event-card-preview" : "event-card-previ
     </div>
 
     <a class="event-card-image" href={withBase(`/events/${event.slug}/`)}>
-      <img class={previewClass} src={previewImage} alt={event.title} />
+      <img class={previewClass} src={previewImage} alt={event.title} style={previewPosition ? `object-position: ${previewPosition};` : undefined} />
     </a>
   </div>
 

@@ -3,6 +3,8 @@ type Slide = {
   src: string;
   alt: string;
   caption?: string;
+  positionX?: number;
+  positionY?: number;
 };
 
 type Props = {
@@ -25,7 +27,12 @@ const sliderId = `slider-${Math.random().toString(36).slice(2, 9)}`;
       <div class="slider-viewport">
         {slides.map((slide, index) => (
           <figure class:list={["slider-slide", index === 0 && "is-active"]} data-slide>
-            <img src={slide.src} alt={slide.alt} loading={index === 0 ? "eager" : "lazy"} />
+            <img
+              src={slide.src}
+              alt={slide.alt}
+              loading={index === 0 ? "eager" : "lazy"}
+              style={slide.positionX !== undefined || slide.positionY !== undefined ? `object-position: ${slide.positionX ?? 50}% ${slide.positionY ?? 50}%;` : undefined}
+            />
             {slide.caption && <figcaption>{slide.caption}</figcaption>}
           </figure>
         ))}

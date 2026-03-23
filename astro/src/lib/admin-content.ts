@@ -22,6 +22,7 @@ export type AdminSlideAsset = {
   fileName: string;
   relativePath: string;
   mediaUrl: string;
+  previewUrl: string;
 };
 
 const collectionFormats: Record<AdminCollectionKey, "markdown" | "json"> = {
@@ -133,14 +134,28 @@ export async function getAdminSlideAssets(): Promise<AdminSlideAsset[]> {
   try {
     const entries = await fs.readdir(slidesDir, { withFileTypes: true });
 
-    return entries
-      .filter((entry) => entry.isFile())
-      .map((entry) => ({
-        fileName: entry.name,
-        relativePath: path.posix.join("assets", "slides", entry.name),
-        mediaUrl: `/media/assets/slides/${entry.name}`
-      }))
-      .sort((left, right) => left.fileName.localeCompare(right.fileName));
+    return Promise.all(
+      entries
+        .filter((entry) => entry.isFile())
+        .sort((left, right) => left.name.localeCompare(right.name))
+        .map(async (entry) => {
+          const absolutePath = path.join(slidesDir, entry.name);
+          const buffer = await fs.readFile(absolutePath);
+          const extension = path.extname(entry.name).toLowerCase();
+          const mimeType = extension === ".png"
+            ? "image/png"
+            : extension === ".webp"
+              ? "image/webp"
+              : "image/jpeg";
+
+          return {
+            fileName: entry.name,
+            relativePath: path.posix.join("assets", "slides", entry.name),
+            mediaUrl: `/media/assets/slides/${entry.name}`,
+            previewUrl: `data:${mimeType};base64,${buffer.toString("base64")}`
+          } satisfies AdminSlideAsset;
+        })
+    );
   } catch (error) {
     const code = (error as NodeJS.ErrnoException).code;
 

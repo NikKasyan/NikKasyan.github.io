@@ -57,10 +57,13 @@ const icsContent = [
   "END:VCALENDAR"
 ].join("\r\n");
 const icsUrl = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
+const titleImagePosition = event.titleImagePositionX !== undefined || event.titleImagePositionY !== undefined
+  ? `${event.titleImagePositionX ?? 50}% ${event.titleImagePositionY ?? 50}%`
+  : undefined;
 ---
 
 <BaseLayout title={`${event.title} | Vienna Symposium`}>
-  <PageHero eyebrow="Event" title={event.title} lead={formattedDate} imageSrc={event.titleImage} imageAlt={event.title} />
+  <PageHero eyebrow="Event" title={event.title} lead={formattedDate} imageSrc={event.titleImage} imageAlt={event.title} imagePosition={titleImagePosition} />
 
   {sliderImages.length > 0 && <ImageSlider slides={sliderImages} title="Event Images" />}
 
