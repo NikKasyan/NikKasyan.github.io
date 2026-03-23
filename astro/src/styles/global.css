@@ -179,6 +179,12 @@ main {
   box-shadow: var(--shadow-soft);
 }
 
+.page-hero-media img.is-logo {
+  padding: 1rem;
+  background: rgba(255, 251, 245, 0.92);
+  object-fit: contain;
+}
+
 .page-hero::after {
   content: "";
   position: absolute;

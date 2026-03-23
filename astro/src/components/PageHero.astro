@@ -8,6 +8,8 @@ type Props = {
 };
 
 const { eyebrow, title, lead, imageSrc, imageAlt } = Astro.props;
+const heroImageSrc = imageSrc || "/media/assets/Logo-focus-no-background-black.png";
+const heroImageClass = imageSrc ? "page-hero-preview" : "page-hero-preview is-logo";
 ---
 
 <section class="page-hero">
@@ -18,10 +20,8 @@ const { eyebrow, title, lead, imageSrc, imageAlt } = Astro.props;
       {lead && <p class="lead">{lead}</p>}
     </div>
 
-    {imageSrc && (
-      <div class="page-hero-media">
-        <img src={imageSrc} alt={imageAlt || title} />
-      </div>
-    )}
+    <div class="page-hero-media">
+      <img class={heroImageClass} src={heroImageSrc} alt={imageAlt || title} />
+    </div>
   </div>
 </section>
