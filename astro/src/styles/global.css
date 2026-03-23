@@ -162,6 +162,10 @@ main {
   align-items: center;
 }
 
+.page-hero-layout--no-media {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .page-hero-copy {
   min-width: 0;
 }

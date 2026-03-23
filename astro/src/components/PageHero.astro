@@ -6,23 +6,26 @@ type Props = {
   imageSrc?: string;
   imageAlt?: string;
   imagePosition?: string;
+  hideImage?: boolean;
 };
 
-const { eyebrow, title, lead, imageSrc, imageAlt, imagePosition } = Astro.props;
+const { eyebrow, title, lead, imageSrc, imageAlt, imagePosition, hideImage = false } = Astro.props;
 const heroImageSrc = imageSrc || "/media/assets/Logo-focus-no-background-black.png";
 const heroImageClass = imageSrc ? "page-hero-preview" : "page-hero-preview is-logo";
 ---
 
 <section class="page-hero">
-  <div class="page-hero-layout">
+  <div class:list={["page-hero-layout", { "page-hero-layout--no-media": hideImage }]}>
     <div class="page-hero-copy">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h1>{title}</h1>
       {lead && <p class="lead">{lead}</p>}
     </div>
 
-    <div class="page-hero-media">
-      <img class={heroImageClass} src={heroImageSrc} alt={imageAlt || title} style={imagePosition ? `object-position: ${imagePosition};` : undefined} />
-    </div>
+    {!hideImage && (
+      <div class="page-hero-media">
+        <img class={heroImageClass} src={heroImageSrc} alt={imageAlt || title} style={imagePosition ? `object-position: ${imagePosition};` : undefined} />
+      </div>
+    )}
   </div>
 </section>
