@@ -1,0 +1,619 @@
+﻿:root {
+  --paper: #ede3d0;
+  --paper-strong: #e1d2b5;
+  --paper-deep: #d2bb95;
+  --ink: #17120f;
+  --ink-soft: #4a3b31;
+  --line: rgba(23, 18, 15, 0.18);
+  --line-strong: rgba(23, 18, 15, 0.3);
+  --accent: #8a4b22;
+  --accent-soft: #b96d33;
+  --panel: rgba(251, 246, 236, 0.96);
+  --panel-strong: rgba(243, 233, 214, 0.98);
+  --shadow: 0 28px 60px rgba(16, 11, 8, 0.14);
+  --shadow-soft: 0 18px 38px rgba(16, 11, 8, 0.08);
+  --radius: 20px;
+  --content-width: 76rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(185, 109, 51, 0.16), transparent 24%),
+    linear-gradient(180deg, #f3ead9 0%, #ebdec6 48%, #ddc8a3 100%);
+  color: var(--ink);
+  font-family: "Source Sans 3", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at 20% 0%, rgba(255, 248, 235, 0.85), transparent 34%);
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  border-radius: 18px;
+}
+
+.page-shell {
+  width: min(calc(100% - 2rem), var(--content-width));
+  margin: 0 auto;
+  padding: 1.25rem 0 4rem;
+}
+
+.site-header,
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.site-header {
+  padding: 1rem 0 2rem;
+}
+
+.brand,
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.brand-logo,
+.footer-logo {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+}
+
+.footer-logo {
+  width: 3rem;
+  height: 3rem;
+}
+
+.brand-title {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(1.5rem, 2vw, 2.05rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.brand-subtitle,
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.site-nav a {
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.82;
+}
+
+.site-nav a:hover,
+.brand:hover,
+.text-link:hover,
+.event-card h3 a:hover,
+.footer-links a:hover,
+.past-gallery-card:hover h3 {
+  color: var(--accent);
+  opacity: 1;
+}
+
+main {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.page-hero,
+.panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.page-hero {
+  padding: clamp(2.5rem, 4vw, 4.5rem);
+  background:
+    linear-gradient(135deg, rgba(255, 252, 247, 0.92), rgba(242, 230, 207, 0.97)),
+    var(--panel);
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -4rem -5rem auto;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(185, 109, 51, 0.2), transparent 66%);
+  pointer-events: none;
+}
+
+.page-hero h1,
+.section-heading h2,
+.event-card h3,
+.prose h1,
+.prose h2,
+.prose h3,
+.slider-heading h2,
+.past-gallery-copy h3 {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.page-hero h1 {
+  max-width: 14ch;
+  margin: 0.35rem 0 0;
+  font-size: clamp(2.6rem, 6vw, 4.9rem);
+}
+
+.lead {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.panel {
+  padding: clamp(1.25rem, 2vw, 2rem);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 242, 0.98), rgba(245, 235, 216, 0.98)),
+    var(--panel-strong);
+}
+
+.panel-prose {
+  padding: clamp(1.5rem, 2.6vw, 2.8rem);
+}
+
+.home-grid,
+.detail-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.home-grid {
+  grid-template-columns: 1.75fr 1fr;
+}
+
+.detail-grid {
+  grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 0.9fr);
+}
+
+.section-heading,
+.slider-heading {
+  margin-bottom: 1.25rem;
+}
+
+.section-heading h2,
+.slider-heading h2 {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.event-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.event-list-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.event-card {
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.event-card:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.event-meta,
+.event-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.event-card h3 {
+  margin: 0.45rem 0;
+  font-size: 1.32rem;
+}
+
+.event-card h3 a {
+  text-decoration: none;
+}
+
+.separator {
+  opacity: 0.55;
+}
+
+.event-summary :is(p, ul, ol):first-child {
+  margin-top: 0.55rem;
+}
+
+.panel-aside {
+  display: grid;
+  align-content: start;
+}
+
+.text-link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.slider-panel {
+  padding-bottom: 1.35rem;
+}
+
+.slider {
+  display: grid;
+  gap: 1rem;
+}
+
+.slider-viewport {
+  position: relative;
+  aspect-ratio: 16 / 8.5;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 4px);
+  background: linear-gradient(180deg, rgba(255, 251, 245, 0.98), rgba(235, 221, 196, 0.96));
+}
+
+.slider-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: end;
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.slider-slide.is-active {
+  opacity: 1;
+}
+
+.slider-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.slider-slide figcaption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  margin: 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(23, 18, 15, 0.72);
+  color: #fff8ef;
+  font-size: 0.9rem;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.slider-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.slider-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 251, 245, 0.8);
+  cursor: pointer;
+  padding: 0;
+}
+
+.slider-dot.is-active,
+.slider-dot:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.slider-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.slider-button {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 251, 245, 0.88);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+
+.slider-button:hover {
+  color: var(--accent);
+  border-color: rgba(138, 75, 34, 0.5);
+}
+
+.past-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.past-gallery-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 251, 245, 0.88);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none;
+}
+
+.past-gallery-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.past-gallery-copy {
+  padding: 1rem;
+}
+
+.past-gallery-copy h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.past-gallery-copy p {
+  margin: 0.45rem 0 0;
+  color: var(--ink-soft);
+}
+
+.prose {
+  max-width: 70ch;
+}
+
+.prose :first-child {
+  margin-top: 0;
+}
+
+.prose :last-child {
+  margin-bottom: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  margin-top: 1.6em;
+  margin-bottom: 0.45em;
+}
+
+.prose p,
+.prose li,
+.prose dd {
+  color: #231c17;
+  font-size: 1.04rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.2rem;
+}
+
+.prose a {
+  color: var(--accent);
+}
+
+.prose-about img {
+  width: 15rem;
+  height: 15rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  background: rgba(255, 251, 245, 0.88);
+  object-fit: cover;
+  object-position: center top;
+}
+
+.prose-about img[src$=".png"] {
+  padding: 0.7rem;
+  object-fit: contain;
+  object-position: center;
+}
+
+.detail-panel {
+  align-self: start;
+}
+
+.detail-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.detail-list div {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.detail-list div:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.detail-list dt {
+  margin-bottom: 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.detail-list dd {
+  margin: 0;
+}
+
+.empty-state {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.footer-title,
+.footer-motto {
+  margin: 0;
+}
+
+.footer-title {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.footer-motto {
+  margin-top: 0.2rem;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .home-grid,
+  .detail-grid,
+  .event-list-compact,
+  .past-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header,
+  .site-footer,
+  .brand,
+  .footer-brand,
+  .slider-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .slider-viewport {
+    aspect-ratio: 4 / 5;
+  }
+
+  .prose-about img {
+    width: min(100%, 15rem);
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-hero,
+  .panel {
+    animation: rise-in 520ms ease both;
+  }
+
+  .event-card,
+  .past-gallery-card {
+    animation: fade-slide 440ms ease both;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

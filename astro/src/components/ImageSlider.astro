@@ -1,0 +1,117 @@
+﻿---
+type Slide = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+type Props = {
+  slides: Slide[];
+  title?: string;
+};
+
+const { slides, title = "Images from the symposium" } = Astro.props;
+const sliderId = `slider-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+{slides.length > 0 && (
+  <section class="panel slider-panel">
+    <div class="section-heading slider-heading">
+      <p class="eyebrow">Gallery</p>
+      <h2>{title}</h2>
+    </div>
+
+    <div class="slider" id={sliderId} data-slider>
+      <div class="slider-viewport">
+        {slides.map((slide, index) => (
+          <figure class:list={["slider-slide", index === 0 && "is-active"]} data-slide>
+            <img src={slide.src} alt={slide.alt} loading={index === 0 ? "eager" : "lazy"} />
+            {slide.caption && <figcaption>{slide.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+
+      {slides.length > 1 && (
+        <div class="slider-controls">
+          <div class="slider-dots" role="tablist" aria-label="Choose slide">
+            {slides.map((_slide, index) => (
+              <button
+                type="button"
+                class:list={["slider-dot", index === 0 && "is-active"]}
+                data-dot={index}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-pressed={index === 0 ? "true" : "false"}
+              />
+            ))}
+          </div>
+
+          <div class="slider-buttons">
+            <button type="button" class="slider-button" data-prev aria-label="Previous slide">
+              Previous
+            </button>
+            <button type="button" class="slider-button" data-next aria-label="Next slide">
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<script is:inline define:vars={{ sliderId }}>
+  const root = document.getElementById(sliderId);
+
+  if (root) {
+    const slides = Array.from(root.querySelectorAll('[data-slide]'));
+    const dots = Array.from(root.querySelectorAll('[data-dot]'));
+    const previousButton = root.querySelector('[data-prev]');
+    const nextButton = root.querySelector('[data-next]');
+    let activeIndex = 0;
+    let timer;
+
+    const showSlide = (index) => {
+      activeIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('is-active', slideIndex === activeIndex);
+      });
+      dots.forEach((dot, dotIndex) => {
+        const active = dotIndex === activeIndex;
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    };
+
+    const restart = () => {
+      if (timer) {
+        window.clearInterval(timer);
+      }
+
+      if (slides.length > 1) {
+        timer = window.setInterval(() => {
+          showSlide(activeIndex + 1);
+        }, 5000);
+      }
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        restart();
+      });
+    });
+
+    previousButton?.addEventListener('click', () => {
+      showSlide(activeIndex - 1);
+      restart();
+    });
+
+    nextButton?.addEventListener('click', () => {
+      showSlide(activeIndex + 1);
+      restart();
+    });
+
+    showSlide(0);
+    restart();
+  }
+</script>

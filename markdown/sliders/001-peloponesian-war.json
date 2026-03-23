@@ -1,0 +1,165 @@
+{
+  "id": "4885",
+  "title": "Leopold Kohr",
+  "type": "ml-slider",
+  "status": "publish",
+  "slug": "peloponesian-war",
+  "date": "2026-02-22 22:32:46",
+  "author": "admin",
+  "renderedContent": "",
+  "sliderIds": [],
+  "slides": [
+    {
+      "id": "4894",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "publish",
+      "slug": "slider-4885-image",
+      "date": "2026-02-22 22:35:55",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 0,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4892",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2026/02/2-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:2560;s:6:\"height\";i:1920;s:4:\"file\";s:20:\"2026/02/2-scaled.jpg\";s:8:\"filesize\";i:672083;s:5:\"sizes\";a:12:{s:6:\"medium\";a:5:{s:4:\"file\";s:13:\"2-300x225.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:18880;}s:5:\"large\";a:5:{s:4:\"file\";s:14:\"2-1024x768.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:768;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:142558;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:13:\"2-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:7372;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:13:\"2-768x576.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:576;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:89378;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:15:\"2-1536x1152.jpg\";s:5:\"width\";i:1536;s:6:\"height\";i:1152;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:276342;}s:9:\"2048x2048\";a:5:{s:4:\"file\";s:15:\"2-2048x1536.jpg\";s:5:\"width\";i:2048;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:452825;}s:25:\"canyon-featured-landscape\";a:5:{s:4:\"file\";s:13:\"2-900x675.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:675;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:116777;}s:30:\"canyon-featured-landscape-half\";a:5:{s:4:\"file\";s:13:\"2-900x450.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:450;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:88548;}s:33:\"canyon-featured-landscape-quarter\";a:5:{s:4:\"file\";s:13:\"2-900x225.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:48449;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:20:\"2-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:73993;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:20:\"2-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:60690;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:20:\"2-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:29105;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:5:\"2.jpg\";}"
+      }
+    },
+    {
+      "id": "4886",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "trash",
+      "slug": "slider-4885-image__trashed",
+      "date": "2026-02-22 22:32:46",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 0,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4512",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2025/08/Untitled5-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:1920;s:6:\"height\";i:2560;s:4:\"file\";s:28:\"2025/08/Untitled5-scaled.jpg\";s:8:\"filesize\";i:692056;s:5:\"sizes\";a:11:{s:6:\"medium\";a:5:{s:4:\"file\";s:21:\"Untitled5-225x300.jpg\";s:5:\"width\";i:225;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:18449;}s:5:\"large\";a:5:{s:4:\"file\";s:22:\"Untitled5-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:142736;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:21:\"Untitled5-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:7332;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:22:\"Untitled5-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:142736;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:23:\"Untitled5-1152x1536.jpg\";s:5:\"width\";i:1152;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:281932;}s:27:\"meta-slider-resized-700x300\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-700x300.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:46744;}s:27:\"meta-slider-resized-620x266\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-620x266.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:266;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:38383;}s:27:\"meta-slider-resized-400x171\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-400x171.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:171;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:18206;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:72186;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:59060;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:28:\"Untitled5-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:28098;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:13:\"Untitled5.jpg\";}"
+      }
+    },
+    {
+      "id": "4895",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "publish",
+      "slug": "slider-4885-image-2",
+      "date": "2026-02-22 22:35:55",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 1,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4891",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2026/02/1-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:2560;s:6:\"height\";i:1920;s:4:\"file\";s:20:\"2026/02/1-scaled.jpg\";s:8:\"filesize\";i:750790;s:5:\"sizes\";a:12:{s:6:\"medium\";a:5:{s:4:\"file\";s:13:\"1-300x225.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:18431;}s:5:\"large\";a:5:{s:4:\"file\";s:14:\"1-1024x768.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:768;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:150192;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:13:\"1-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:7256;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:13:\"1-768x576.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:576;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:92202;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:15:\"1-1536x1152.jpg\";s:5:\"width\";i:1536;s:6:\"height\";i:1152;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:301039;}s:9:\"2048x2048\";a:5:{s:4:\"file\";s:15:\"1-2048x1536.jpg\";s:5:\"width\";i:2048;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:503858;}s:25:\"canyon-featured-landscape\";a:5:{s:4:\"file\";s:13:\"1-900x675.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:675;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:121342;}s:30:\"canyon-featured-landscape-half\";a:5:{s:4:\"file\";s:13:\"1-900x450.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:450;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:94194;}s:33:\"canyon-featured-landscape-quarter\";a:5:{s:4:\"file\";s:13:\"1-900x225.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:50558;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:20:\"1-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:75893;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:20:\"1-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:61795;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:20:\"1-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:28772;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:5:\"1.jpg\";}"
+      }
+    },
+    {
+      "id": "4887",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "trash",
+      "slug": "slider-4885-image-2__trashed",
+      "date": "2026-02-22 22:32:46",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 1,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4513",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2025/08/Untitled-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:1920;s:6:\"height\";i:2560;s:4:\"file\";s:27:\"2025/08/Untitled-scaled.jpg\";s:8:\"filesize\";i:669100;s:5:\"sizes\";a:11:{s:6:\"medium\";a:5:{s:4:\"file\";s:20:\"Untitled-225x300.jpg\";s:5:\"width\";i:225;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:16638;}s:5:\"large\";a:5:{s:4:\"file\";s:21:\"Untitled-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:136387;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:20:\"Untitled-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:6534;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:21:\"Untitled-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:136387;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:22:\"Untitled-1152x1536.jpg\";s:5:\"width\";i:1152;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:272805;}s:27:\"meta-slider-resized-700x300\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-700x300.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:37635;}s:27:\"meta-slider-resized-620x266\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-620x266.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:266;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:30767;}s:27:\"meta-slider-resized-400x171\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-400x171.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:171;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:14530;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:61199;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:49659;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:27:\"Untitled-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:23048;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:12:\"Untitled.jpg\";}"
+      }
+    },
+    {
+      "id": "4896",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "publish",
+      "slug": "slider-4885-image-3",
+      "date": "2026-02-22 22:35:55",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 2,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4893",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2026/02/3-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:1920;s:6:\"height\";i:2560;s:4:\"file\";s:20:\"2026/02/3-scaled.jpg\";s:8:\"filesize\";i:699613;s:5:\"sizes\";a:12:{s:6:\"medium\";a:5:{s:4:\"file\";s:13:\"3-225x300.jpg\";s:5:\"width\";i:225;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:17582;}s:5:\"large\";a:5:{s:4:\"file\";s:14:\"3-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:141043;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:13:\"3-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:7307;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:14:\"3-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:141043;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:15:\"3-1152x1536.jpg\";s:5:\"width\";i:1152;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:282073;}s:9:\"2048x2048\";a:5:{s:4:\"file\";s:15:\"3-1536x2048.jpg\";s:5:\"width\";i:1536;s:6:\"height\";i:2048;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:469703;}s:25:\"canyon-featured-landscape\";a:5:{s:4:\"file\";s:13:\"3-900x675.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:675;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:127718;}s:30:\"canyon-featured-landscape-half\";a:5:{s:4:\"file\";s:13:\"3-900x450.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:450;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:90415;}s:33:\"canyon-featured-landscape-quarter\";a:5:{s:4:\"file\";s:13:\"3-900x225.jpg\";s:5:\"width\";i:900;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:46402;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:20:\"3-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:78484;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:20:\"3-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:63761;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:20:\"3-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:29713;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:5:\"3.jpg\";}"
+      }
+    },
+    {
+      "id": "4888",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "trash",
+      "slug": "slider-4885-image-3__trashed",
+      "date": "2026-02-22 22:32:46",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 2,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4514",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2025/10/Untitled6-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:2560;s:6:\"height\";i:1920;s:4:\"file\";s:28:\"2025/10/Untitled6-scaled.jpg\";s:8:\"filesize\";i:660360;s:5:\"sizes\";a:11:{s:6:\"medium\";a:5:{s:4:\"file\";s:21:\"Untitled6-300x225.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:225;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:17866;}s:5:\"large\";a:5:{s:4:\"file\";s:22:\"Untitled6-1024x768.jpg\";s:5:\"width\";i:1024;s:6:\"height\";i:768;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:133216;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:21:\"Untitled6-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:6831;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:21:\"Untitled6-768x576.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:576;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:82855;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:23:\"Untitled6-1536x1152.jpg\";s:5:\"width\";i:1536;s:6:\"height\";i:1152;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:264293;}s:27:\"meta-slider-resized-700x300\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-700x300.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:39783;}s:27:\"meta-slider-resized-620x266\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-620x266.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:266;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:33158;}s:27:\"meta-slider-resized-400x171\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-400x171.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:171;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:16186;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:68175;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:55914;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:28:\"Untitled6-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:26929;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:13:\"Untitled6.jpg\";}"
+      }
+    },
+    {
+      "id": "4889",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "trash",
+      "slug": "slider-4885-image-4__trashed",
+      "date": "2026-02-22 22:32:46",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 3,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4515",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2025/10/Untitled7-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:1920;s:6:\"height\";i:2560;s:4:\"file\";s:28:\"2025/10/Untitled7-scaled.jpg\";s:8:\"filesize\";i:896236;s:5:\"sizes\";a:11:{s:6:\"medium\";a:5:{s:4:\"file\";s:21:\"Untitled7-225x300.jpg\";s:5:\"width\";i:225;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:19073;}s:5:\"large\";a:5:{s:4:\"file\";s:22:\"Untitled7-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:165366;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:21:\"Untitled7-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:6979;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:22:\"Untitled7-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:165366;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:23:\"Untitled7-1152x1536.jpg\";s:5:\"width\";i:1152;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:345252;}s:27:\"meta-slider-resized-700x300\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-700x300.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:44368;}s:27:\"meta-slider-resized-620x266\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-620x266.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:266;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:36225;}s:27:\"meta-slider-resized-400x171\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-400x171.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:171;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:17028;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:70329;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:56986;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:28:\"Untitled7-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:26527;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:13:\"Untitled7.jpg\";}"
+      }
+    },
+    {
+      "id": "4890",
+      "title": "Slider 4885 - image",
+      "type": "ml-slide",
+      "status": "trash",
+      "slug": "slider-4885-image-5__trashed",
+      "date": "2026-02-22 22:32:46",
+      "author": "admin",
+      "renderedContent": "",
+      "order": 4,
+      "sliderIds": [
+        "4885"
+      ],
+      "thumbnailId": "4516",
+      "image": {
+        "url": "https://vienna-symposium.com/wp-content/uploads/2025/10/Untitled2-scaled.jpg",
+        "metadata": "a:7:{s:5:\"width\";i:1920;s:6:\"height\";i:2560;s:4:\"file\";s:28:\"2025/10/Untitled2-scaled.jpg\";s:8:\"filesize\";i:554500;s:5:\"sizes\";a:11:{s:6:\"medium\";a:5:{s:4:\"file\";s:21:\"Untitled2-225x300.jpg\";s:5:\"width\";i:225;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:15329;}s:5:\"large\";a:5:{s:4:\"file\";s:22:\"Untitled2-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:115776;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:21:\"Untitled2-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:6091;}s:12:\"medium_large\";a:5:{s:4:\"file\";s:22:\"Untitled2-768x1024.jpg\";s:5:\"width\";i:768;s:6:\"height\";i:1024;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:115776;}s:9:\"1536x1536\";a:5:{s:4:\"file\";s:23:\"Untitled2-1152x1536.jpg\";s:5:\"width\";i:1152;s:6:\"height\";i:1536;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:226350;}s:27:\"meta-slider-resized-700x300\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-700x300.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:35845;}s:27:\"meta-slider-resized-620x266\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-620x266.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:266;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:29442;}s:27:\"meta-slider-resized-400x171\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-400x171.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:171;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:14046;}s:27:\"meta-slider-resized-700x500\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-700x500.jpg\";s:5:\"width\";i:700;s:6:\"height\";i:500;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:56990;}s:27:\"meta-slider-resized-620x443\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-620x443.jpg\";s:5:\"width\";i:620;s:6:\"height\";i:443;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:46268;}s:27:\"meta-slider-resized-400x286\";a:5:{s:4:\"file\";s:28:\"Untitled2-scaled-400x286.jpg\";s:5:\"width\";i:400;s:6:\"height\";i:286;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:21931;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}s:14:\"original_image\";s:13:\"Untitled2.jpg\";}"
+      }
+    }
+  ]
+}

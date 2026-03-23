@@ -1,0 +1,67 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EventCard from "../components/EventCard.astro";
+import PageHero from "../components/PageHero.astro";
+import { getEvents, getHomePage, splitEventsByDate } from "../lib/content";
+
+const home = await getHomePage();
+const events = await getEvents();
+const { upcoming, past } = splitEventsByDate(events);
+const featuredPast = past.slice(0, 3);
+---
+
+<BaseLayout title="Vienna Symposium">
+  <PageHero
+    eyebrow="Vienna Symposium"
+    title="The Vienna Symposium"
+    lead="SOCIETAS - VINVM - HVMANITAS"
+  />
+
+  <section class="panel panel-prose">
+    <div class="prose" set:html={home.html} />
+  </section>
+
+  <section class="home-grid">
+    <div class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Programme</p>
+        <h2>Upcoming discussions</h2>
+      </div>
+
+      <div class="event-list">
+        {upcoming.length > 0 ? (
+          upcoming.slice(0, 4).map((event) => <EventCard event={event} />)
+        ) : (
+          <p class="empty-state">No upcoming events are currently listed.</p>
+        )}
+      </div>
+    </div>
+
+    <div class="panel panel-aside">
+      <div class="section-heading">
+        <p class="eyebrow">Community</p>
+        <h2>The character of the symposium</h2>
+      </div>
+
+      <p>
+        Small gatherings. Careful reading. Long conversation. The site should foreground the life of
+        ideas without losing the warmth of a real association and a real table.
+      </p>
+
+      <a class="text-link" href="/about-us">
+        Learn more about the Verein
+      </a>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <p class="eyebrow">Archive</p>
+      <h2>Selected past symposia</h2>
+    </div>
+
+    <div class="event-list event-list-compact">
+      {featuredPast.map((event) => <EventCard event={event} />)}
+    </div>
+  </section>
+</BaseLayout>

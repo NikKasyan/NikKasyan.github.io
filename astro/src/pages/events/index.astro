@@ -1,0 +1,73 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EventCard from "../../components/EventCard.astro";
+import PageHero from "../../components/PageHero.astro";
+import { getEvents, getSliderImagesByIds, splitEventsByDate } from "../../lib/content";
+import { withBase } from "../../lib/paths";
+
+const events = await getEvents();
+const { upcoming, past } = splitEventsByDate(events);
+const pastGalleries = (await Promise.all(
+  past.map(async (event) => ({
+    event,
+    image: (await getSliderImagesByIds(event.sliders))[0]
+  }))
+)).filter((entry) => entry.image);
+---
+
+<BaseLayout title="Events | Vienna Symposium">
+  <PageHero
+    eyebrow="Programme"
+    title="Events"
+    lead="Readings, seminars, and symposia drawn from the archive and current programme."
+  />
+
+  <section class="panel">
+    <div class="section-heading">
+      <p class="eyebrow">Upcoming</p>
+      <h2>Next discussions</h2>
+    </div>
+
+    <div class="event-list">
+      {upcoming.length > 0 ? (
+        upcoming.map((event) => <EventCard event={event} />)
+      ) : (
+        <p class="empty-state">No upcoming events are currently listed.</p>
+      )}
+    </div>
+  </section>
+
+  {pastGalleries.length > 0 && (
+    <section class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Gallery</p>
+        <h2>Past Event Galleries</h2>
+      </div>
+
+      <div class="past-gallery-grid">
+        {pastGalleries.map(({ event, image }) => (
+          <a class="past-gallery-card" href={withBase(`/events/${event.slug}/`)}>
+            <img src={image!.src} alt={image!.alt} loading="lazy" />
+            <div class="past-gallery-copy">
+              <h3>{event.title}</h3>
+              <p>
+                {new Intl.DateTimeFormat("en-AT", { dateStyle: "long" }).format(new Date(event.date))}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="panel">
+    <div class="section-heading">
+      <p class="eyebrow">Archive</p>
+      <h2>Past events</h2>
+    </div>
+
+    <div class="event-list">
+      {past.map((event) => <EventCard event={event} />)}
+    </div>
+  </section>
+</BaseLayout>

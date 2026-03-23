@@ -1,0 +1,26 @@
+{
+  "name": "vienna-symposium-astro",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "new:event": "node scripts/new-content.mjs event",
+    "new:venue": "node scripts/new-content.mjs venue",
+    "new:slider": "node scripts/new-content.mjs slider"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "marked": "^15.0.0",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@types/node": "^22.19.15",
+    "typescript": "^5.9.3"
+  }
+}

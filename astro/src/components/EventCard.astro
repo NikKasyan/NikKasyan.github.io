@@ -1,0 +1,36 @@
+﻿---
+import type { EventDocument } from "../lib/content";
+import { withBase } from "../lib/paths";
+
+type Props = {
+  event: EventDocument;
+};
+
+const { event } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat("en-AT", {
+  dateStyle: "long",
+  timeStyle: "short"
+}).format(new Date(event.date));
+---
+
+<article class="event-card">
+  <div class="event-meta">
+    <span>{formattedDate}</span>
+    {event.tags.length > 0 && <span>{event.tags.join(" / ")}</span>}
+  </div>
+
+  <h3>
+    <a href={withBase(`/events/${event.slug}/`)}>{event.title}</a>
+  </h3>
+
+  {(event.venue || event.organizer) && (
+    <p class="event-context">
+      {event.venue && <span>{event.venue}</span>}
+      {event.venue && event.organizer && <span class="separator">•</span>}
+      {event.organizer && <span>Organized by {event.organizer}</span>}
+    </p>
+  )}
+
+  {event.body && <div class="event-summary" set:html={event.html} />}
+</article>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { getAboutPage } from "../lib/content";
+
+const page = await getAboutPage();
+---
+
+<BaseLayout title="About Us | Vienna Symposium">
+  <PageHero
+    eyebrow="Association"
+    title="About Us"
+    lead="The people behind the Vienna Symposium and the community they have built."
+  />
+
+  <section class="panel panel-prose">
+    <div class="prose prose-about" set:html={page.html} />
+  </section>
+</BaseLayout>

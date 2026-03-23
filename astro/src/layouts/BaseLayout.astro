@@ -1,0 +1,74 @@
+﻿---
+import "../styles/global.css";
+import { withBase } from "../lib/paths";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const {
+  title,
+  description = "Vienna Symposium is a community for philosophy, classics, literature, and discussion in Vienna."
+} = Astro.props;
+
+const favicon = withBase("/media/assets/Logo-focus-no-background-black.png");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href={favicon} />
+    <link rel="apple-touch-icon" href={favicon} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href={withBase("/")}>
+          <img
+            class="brand-logo"
+            src={withBase("/media/assets/Logo-focus-no-background-black.png")}
+            alt="The Vienna Symposium logo"
+          />
+          <span class="brand-copy">
+            <span class="brand-title">The Vienna Symposium</span>
+            <span class="brand-subtitle">SOCIETAS - VINVM - HVMANITAS</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href={withBase("/")}>Home</a>
+          <a href={withBase("/events/")}>Events</a>
+          <a href={withBase("/about-us/")}>About</a>
+          <a href={withBase("/support-us/")}>Support</a>
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-brand">
+          <img
+            class="footer-logo"
+            src={withBase("/media/assets/Logo-focus-no-background-black.png")}
+            alt="The Vienna Symposium logo"
+          />
+          <div>
+            <p class="footer-title">The Vienna Symposium</p>
+            <p class="footer-motto">SOCIETAS - VINVM - HVMANITAS</p>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href={withBase("/impressum/")}>Impressum</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+﻿---
+import ImageSlider from "../../components/ImageSlider.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { getEventBySlug, getEvents, getSliderImagesByIds, getVendorByTitle } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const events = await getEvents();
+  return events.map((event) => ({
+    params: { slug: event.slug }
+  }));
+}
+
+const { slug } = Astro.params;
+const event = slug ? await getEventBySlug(slug) : undefined;
+
+if (!event) {
+  return Astro.redirect("/events");
+}
+
+const vendor = await getVendorByTitle(event.venue);
+const sliderImages = await getSliderImagesByIds(event.sliders);
+const formattedDate = new Intl.DateTimeFormat("en-AT", {
+  dateStyle: "full",
+  timeStyle: "short"
+}).format(new Date(event.date));
+const mapQuery = [event.venue, event.venueAddress].filter(Boolean).join(", ");
+const googleMapsUrl = mapQuery
+  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`
+  : undefined;
+---
+
+<BaseLayout title={`${event.title} | Vienna Symposium`}>
+  <PageHero eyebrow="Event" title={event.title} lead={formattedDate} />
+
+  {sliderImages.length > 0 && <ImageSlider slides={sliderImages} title="Event Images" />}
+
+  <section class="detail-grid">
+    <article class="panel panel-prose">
+      {event.body ? (
+        <div class="prose" set:html={event.html} />
+      ) : (
+        <p class="empty-state">This event currently has no additional description.</p>
+      )}
+    </article>
+
+    <aside class="panel detail-panel">
+      <dl class="detail-list">
+        <div>
+          <dt>Date</dt>
+          <dd>{formattedDate}</dd>
+        </div>
+
+        {event.tags.length > 0 && (
+          <div>
+            <dt>Type</dt>
+            <dd>{event.tags.join(", ")}</dd>
+          </div>
+        )}
+
+        {event.venue && (
+          <div>
+            <dt>Venue</dt>
+            <dd>{event.venue}</dd>
+          </div>
+        )}
+
+        {event.venueAddress && (
+          <div>
+            <dt>Address</dt>
+            <dd>{event.venueAddress}</dd>
+          </div>
+        )}
+
+        {googleMapsUrl && (
+          <div>
+            <dt>Map</dt>
+            <dd>
+              <a class="text-link" href={googleMapsUrl} target="_blank" rel="noreferrer">
+                Open in Google Maps
+              </a>
+            </dd>
+          </div>
+        )}
+
+        {event.organizer && (
+          <div>
+            <dt>Organizer</dt>
+            <dd>{event.organizer}</dd>
+          </div>
+        )}
+
+        {vendor?.content && (
+          <div>
+            <dt>Venue note</dt>
+            <dd>{vendor.content}</dd>
+          </div>
+        )}
+      </dl>
+    </aside>
+  </section>
+</BaseLayout>

@@ -1,7 +1,0 @@
-#display {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	background-color: white;
-	flex: 1 1 0;
-}
