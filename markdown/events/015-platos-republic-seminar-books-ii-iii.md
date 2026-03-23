@@ -9,8 +9,7 @@ author: "admin"
 venue: "Santo Spirito"
 venue_address: "Kumpfgasse 7, Vienna, Vienna 1010 Austria"
 organizer: "Scott Nelson"
+title_image: "/media/assets/slides/the-republic-90.jpg"
 tags:
   - "Seminar"
 ---
-
-

@@ -9,8 +9,7 @@ author: "admin"
 venue: "TBA"
 venue_address: "TBA, Vienna Austria"
 organizer: "Scott Nelson"
+title_image: "/media/assets/slides/the-republic-90.jpg"
 tags:
   - "Seminar"
 ---
-
-

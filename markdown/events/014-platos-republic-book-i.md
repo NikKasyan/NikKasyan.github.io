@@ -9,8 +9,7 @@ author: "admin"
 venue: "Bierosophie"
 venue_address: "Gablenzgasse 60A, Vienna, Vienna 1160 Austria"
 organizer: "Scott Nelson"
+title_image: "/media/assets/slides/the-republic-90.jpg"
 tags:
   - "Seminar"
 ---
-
-
