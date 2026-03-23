@@ -60,7 +60,7 @@ const icsUrl = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent
 ---
 
 <BaseLayout title={`${event.title} | Vienna Symposium`}>
-  <PageHero eyebrow="Event" title={event.title} lead={formattedDate} />
+  <PageHero eyebrow="Event" title={event.title} lead={formattedDate} imageSrc={event.titleImage} imageAlt={event.title} />
 
   {sliderImages.length > 0 && <ImageSlider slides={sliderImages} title="Event Images" />}
 

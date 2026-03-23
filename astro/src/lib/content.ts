@@ -38,6 +38,7 @@ export type EventDocument = {
   venue?: string;
   venueAddress?: string;
   organizer?: string;
+  titleImage?: string;
   sliders: string[];
   body: string;
   html: string;
@@ -163,6 +164,26 @@ function rewriteRelativeMarkdownAssetUrls(input: string, sourceDir: string): str
   });
 }
 
+function resolveMediaUrl(value: unknown, sourceDir: string) {
+  if (typeof value !== "string" || !value.trim()) {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+
+  if (trimmed.startsWith("/")) {
+    return withBase(trimmed);
+  }
+
+  const cleaned = trimmed.replace(/^\.\/+/, "");
+  const assetPath = [sourceDir, cleaned].filter(Boolean).join("/").replace(/\\/g, "/");
+  return withBase(`/media/${assetPath}`);
+}
+
 async function renderMarkdown(body: string): Promise<string> {
   return await marked.parse(body);
 }
@@ -226,6 +247,7 @@ export async function getEvents(): Promise<EventDocument[]> {
         venue: frontmatter.venue ? String(frontmatter.venue) : undefined,
         venueAddress: frontmatter.venue_address ? String(frontmatter.venue_address) : undefined,
         organizer: frontmatter.organizer ? String(frontmatter.organizer) : undefined,
+        titleImage: resolveMediaUrl(frontmatter.title_image, "events"),
         sliders: toStringArray(frontmatter.sliders),
         body: normalizedBody,
         html: await renderMarkdown(normalizedBody),

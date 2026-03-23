@@ -3,13 +3,25 @@ type Props = {
   eyebrow?: string;
   title: string;
   lead?: string;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
-const { eyebrow, title, lead } = Astro.props;
+const { eyebrow, title, lead, imageSrc, imageAlt } = Astro.props;
 ---
 
 <section class="page-hero">
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-  <h1>{title}</h1>
-  {lead && <p class="lead">{lead}</p>}
+  <div class="page-hero-layout">
+    <div class="page-hero-copy">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+    </div>
+
+    {imageSrc && (
+      <div class="page-hero-media">
+        <img src={imageSrc} alt={imageAlt || title} />
+      </div>
+    )}
+  </div>
 </section>

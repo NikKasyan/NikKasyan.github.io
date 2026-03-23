@@ -40,8 +40,19 @@ const adminPayload = JSON.stringify({ initialRecords, slideAssets });
 
         <div class="admin-sidebar-section admin-records-panel">
           <div class="admin-records-header">
-            <p class="eyebrow">Files</p>
-            <p id="admin-record-count" class="admin-muted"></p>
+            <div>
+              <p class="eyebrow">Files</p>
+              <p id="admin-record-count" class="admin-muted"></p>
+            </div>
+            <label class="archive-control admin-sort-control">
+              <span>Order</span>
+              <select id="admin-record-sort">
+                <option value="created-desc">Newest created</option>
+                <option value="created-asc">Oldest created</option>
+                <option value="date-desc">Latest date</option>
+                <option value="date-asc">Earliest date</option>
+              </select>
+            </label>
           </div>
           <div id="admin-record-list" class="admin-record-list"></div>
         </div>

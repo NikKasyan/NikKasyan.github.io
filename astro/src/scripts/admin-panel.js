@@ -26,11 +26,14 @@ const state = {
   collections: initialState,
   activeCollection: initialState.events.length > 0 ? 'events' : (Object.keys(initialState).find((key) => initialState[key].length > 0) || 'events'),
   activeRecordPath: initialState.events[0]?.relativePath || payload.initialRecords?.[0]?.relativePath || null,
-  message: ''
+  message: '',
+  uploadedSlideAssets: [],
+  recordSort: 'created-desc'
 };
 
 const recordList = document.getElementById('admin-record-list');
 const recordCount = document.getElementById('admin-record-count');
+const recordSort = document.getElementById('admin-record-sort');
 const statusNode = document.getElementById('admin-status');
 const title = document.getElementById('admin-record-title');
 const badge = document.getElementById('admin-record-badge');
@@ -87,6 +90,7 @@ const nextNumericPrefix = (records) => {
 };
 
 const uniqueId = () => `${Date.now()}${String(uidCounter++).padStart(3, '0')}`;
+const logoMediaUrl = '/media/assets/Logo-focus-no-background-black.png';
 
 const parseMarkdownMeta = (value) => {
   const match = value.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
@@ -181,6 +185,7 @@ const parseEventRecord = (record) => {
       venue: String(fields.venue || ''),
       venue_address: String(fields.venue_address || ''),
       organizer: String(fields.organizer || ''),
+      title_image: String(fields.title_image || ''),
       tags: Array.isArray(fields.tags) ? fields.tags : [],
       sliders: Array.isArray(fields.sliders) ? fields.sliders : [],
       body: parsed.body
@@ -203,6 +208,7 @@ const serializeEventRecord = (data) => {
   if (data.venue) lines.push(`venue: "${String(data.venue).replaceAll('"', '\\"')}"`);
   if (data.venue_address) lines.push(`venue_address: "${String(data.venue_address).replaceAll('"', '\\"')}"`);
   if (data.organizer) lines.push(`organizer: "${String(data.organizer).replaceAll('"', '\\"')}"`);
+  if (data.title_image) lines.push(`title_image: "${String(data.title_image).replaceAll('"', '\\"')}"`);
   if ((data.sliders || []).length > 0) {
     lines.push('sliders:');
     for (const sliderId of data.sliders) lines.push(`  - "${String(sliderId).replaceAll('"', '\\"')}"`);
@@ -250,6 +256,7 @@ const eventTemplate = (slug) => serializeEventRecord({
   venue: '',
   venue_address: '',
   organizer: '',
+  title_image: '',
   tags: ['Symposium'],
   sliders: [],
   body: ''
@@ -373,6 +380,31 @@ const updateJsonField = (record, mutate) => {
   updateRecordSource(record, `${JSON.stringify(data, null, 2)}\n`);
 };
 
+const readFileAsUint8Array = async (file) => {
+  const buffer = await file.arrayBuffer();
+  return new Uint8Array(buffer);
+};
+
+const addUploadedSlideAssets = async (files) => {
+  const accepted = files.filter((file) => file.type.startsWith('image/') || /\.(png|jpe?g|webp)$/i.test(file.name));
+  if (accepted.length === 0) {
+    setMessage('Only image files can be added as title images.', 'warning');
+    return [];
+  }
+
+  const created = await Promise.all(accepted.map(async (file) => ({
+    fileName: file.name,
+    relativePath: `assets/slides/${file.name}`,
+    mediaUrl: `/media/assets/slides/${file.name}`,
+    previewUrl: URL.createObjectURL(file),
+    bytes: await readFileAsUint8Array(file)
+  })));
+
+  const retained = state.uploadedSlideAssets.filter((asset) => !created.some((entry) => entry.mediaUrl === asset.mediaUrl));
+  state.uploadedSlideAssets = [...retained, ...created];
+  return created;
+};
+
 const removeDraft = () => {
   const record = getActiveRecord();
   if (!record || !record.isNew) return;
@@ -398,6 +430,27 @@ const renderTabs = () => {
 
 const collectUniqueValues = (values) => Array.from(new Set(values.map((value) => String(value || '').trim()).filter(Boolean))).sort((left, right) => left.localeCompare(right));
 
+const getCreationRank = (record) => {
+  const match = String(record.fileName || '').match(/^(\d+)-/);
+  return match ? Number(match[1]) : 0;
+};
+
+const getDateRank = (record) => {
+  const value = Date.parse(String(record.date || ''));
+  return Number.isFinite(value) ? value : 0;
+};
+
+const getSortedRecords = (collection) => {
+  const records = [...state.collections[collection]];
+  const mode = state.recordSort;
+  return records.sort((left, right) => {
+    if (mode === 'created-asc') return getCreationRank(left) - getCreationRank(right) || left.fileName.localeCompare(right.fileName);
+    if (mode === 'date-desc') return getDateRank(right) - getDateRank(left) || right.fileName.localeCompare(left.fileName);
+    if (mode === 'date-asc') return getDateRank(left) - getDateRank(right) || left.fileName.localeCompare(right.fileName);
+    return getCreationRank(right) - getCreationRank(left) || right.fileName.localeCompare(left.fileName);
+  });
+};
+
 const getVenueOptions = () => collectUniqueValues([
   ...state.collections.vendors.map((record) => parseMeta(record).title),
   ...state.collections.events.map((record) => parseEventRecord(record).data.venue)
@@ -419,6 +472,15 @@ const getVenueAddressLookup = () => {
   return entries;
 };
 
+const getAvailableSlideAssets = () => {
+  const merged = new Map();
+  for (const asset of knownSlideAssets) merged.set(asset.mediaUrl, asset);
+  for (const asset of state.uploadedSlideAssets) merged.set(asset.mediaUrl, asset);
+  return Array.from(merged.values()).sort((left, right) => left.fileName.localeCompare(right.fileName));
+};
+
+const getKnownSlideNames = () => new Set(getAvailableSlideAssets().map((asset) => asset.fileName));
+
 const getSliderPreviewEntries = (sliderIds) => {
   const selected = new Set((sliderIds || []).map((value) => String(value)));
   return state.collections.sliders
@@ -435,6 +497,14 @@ const getSliderPreviewEntries = (sliderIds) => {
     })
     .filter(Boolean);
 };
+
+const getTitleImagePreviewUrl = (value) => {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return logoMediaUrl;
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('/')) return trimmed;
+  return `/media/events/${trimmed.replace(/^\.\/+/, '').replace(/^\.\.\//, '')}`;
+};
+
 const getSliderOptions = () => state.collections.sliders
   .map((record) => ({
     id: (() => {
@@ -446,7 +516,7 @@ const getSliderOptions = () => state.collections.sliders
   .filter((entry) => entry.id)
   .sort((left, right) => left.title.localeCompare(right.title));
 const renderRecordList = () => {
-  const records = state.collections[state.activeCollection];
+  const records = getSortedRecords(state.activeCollection);
   recordCount.textContent = `${records.length} file${records.length === 1 ? '' : 's'}`;
   recordList.innerHTML = records.map((record) => {
     const classes = ['admin-record-link'];
@@ -467,6 +537,8 @@ const applyEventForm = (record) => {
   const venueOptions = getVenueOptions();
   const organizerOptions = getOrganizerOptions();
   const sliderOptions = getSliderOptions();
+  const availableSlideAssets = getAvailableSlideAssets();
+  const titleImagePreviewUrl = getTitleImagePreviewUrl(data.title_image);
 
   formHost.innerHTML = `
     <div class="admin-form-grid">
@@ -479,6 +551,19 @@ const applyEventForm = (record) => {
       <label class="archive-control"><span>Venue</span><select data-field="venue" data-venue-select><option value="">None</option>${venueOptions.map((option) => `<option value="${escapeHtml(option)}" ${data.venue === option ? 'selected' : ''}>${escapeHtml(option)}</option>`).join('')}</select></label>
       <label class="archive-control"><span>Venue Address</span><input data-field="venue_address" value="${escapeHtml(data.venue_address)}" /></label>
       <label class="archive-control"><span>Organizer</span><select data-field="organizer"><option value="">None</option>${organizerOptions.map((option) => `<option value="${escapeHtml(option)}" ${data.organizer === option ? 'selected' : ''}>${escapeHtml(option)}</option>`).join('')}</select></label>
+      <div class="archive-control admin-form-full">
+        <span>Title Image</span>
+        <div class="admin-slide-zone admin-title-image-zone" id="admin-title-image-zone">
+          <p class="admin-note">Drag an image here to add it to the in-memory asset library, or pick from the existing assets below.</p>
+          <label class="admin-slide-drop admin-upload-box">
+            <input type="file" accept="image/*" data-title-image-upload />
+            <span>Drop title image here or choose a file</span>
+            <small>New files are exported into <code>markdown/assets/slides</code>.</small>
+          </label>
+          <div class="admin-select-list">${availableSlideAssets.length > 0 ? [`<label class="admin-check-option"><input type="radio" name="event-title-image" data-title-image-option="" ${!data.title_image ? 'checked' : ''} /><span>No image</span></label>`, ...availableSlideAssets.map((asset) => `<label class="admin-image-option"><input type="radio" name="event-title-image" data-title-image-option="${escapeHtml(asset.mediaUrl)}" ${data.title_image === asset.mediaUrl ? 'checked' : ''} /><img src="${escapeHtml(asset.previewUrl || asset.mediaUrl)}" alt="" /><span>${escapeHtml(asset.fileName)}</span></label>`)].join('') : '<p class="empty-state">No slide assets available.</p>'}</div>
+        </div>
+      </div>
+      <div class="admin-form-full admin-title-image-preview"><img src="${escapeHtml(titleImagePreviewUrl)}" alt="" /></div>
       <div class="archive-control admin-form-full"><span>Sliders</span><div class="admin-select-list">${sliderOptions.length > 0 ? sliderOptions.map((option) => `<label class="admin-check-option"><input type="checkbox" data-slider-option="${escapeHtml(option.id)}" ${data.sliders.includes(option.id) ? 'checked' : ''} /><span>${escapeHtml(option.title)} <code>${escapeHtml(option.id)}</code></span></label>`).join('') : '<p class="empty-state">No sliders available.</p>'}</div></div>
       <div class="admin-form-full admin-slider-preview-wrap"><span class="admin-preview-label">Slideshow Preview</span><div class="admin-slider-preview-list">${getSliderPreviewEntries(data.sliders).length > 0 ? getSliderPreviewEntries(data.sliders).map((slider) => `<section class="admin-slider-preview"><h3>${escapeHtml(slider.title)}</h3><div class="admin-slider-preview-grid">${slider.slides.slice(0, 6).map((slide) => `<img src="${escapeHtml(slide.image?.url || '')}" alt="" />`).join('')}</div></section>`).join('') : '<p class="empty-state">Select one or more sliders to preview their images.</p>'}</div></div>
       <label class="archive-control admin-form-full"><span>Tags</span><input data-list-field="tags" value="${escapeHtml((data.tags || []).join(', '))}" /></label>
@@ -503,6 +588,40 @@ const applyEventForm = (record) => {
       const selected = Array.from(formHost.querySelectorAll('[data-slider-option]:checked')).map((input) => input.dataset.sliderOption);
       updateEventField(record, 'sliders', selected);
     });
+  });
+
+  formHost.querySelectorAll('[data-title-image-option]').forEach((node) => {
+    node.addEventListener('change', () => updateEventField(record, 'title_image', node.dataset.titleImageOption || ''));
+  });
+
+  formHost.querySelector('[data-title-image-upload]')?.addEventListener('change', async (event) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length === 0) return;
+    const created = await addUploadedSlideAssets(files);
+    if (created[0]) {
+      updateEventField(record, 'title_image', created[0].mediaUrl);
+      setMessage(`Added ${created.length} image file${created.length === 1 ? '' : 's'} to the in-memory asset library.`, 'success');
+    }
+    event.target.value = '';
+  });
+
+  const titleImageZone = formHost.querySelector('#admin-title-image-zone');
+  const titleImageDrop = formHost.querySelector('#admin-title-image-zone .admin-slide-drop');
+  titleImageZone?.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    titleImageDrop?.classList.add('is-dragover');
+  });
+  titleImageZone?.addEventListener('dragleave', () => titleImageDrop?.classList.remove('is-dragover'));
+  titleImageZone?.addEventListener('drop', async (event) => {
+    event.preventDefault();
+    titleImageDrop?.classList.remove('is-dragover');
+    const files = Array.from(event.dataTransfer?.files || []);
+    if (files.length === 0) return;
+    const created = await addUploadedSlideAssets(files);
+    if (created[0]) {
+      updateEventField(record, 'title_image', created[0].mediaUrl);
+      setMessage(`Added ${created.length} image file${created.length === 1 ? '' : 's'} to the in-memory asset library.`, 'success');
+    }
   });
 
   formHost.querySelector('[data-venue-select]')?.addEventListener('change', (event) => {
@@ -569,13 +688,14 @@ const applySimpleJsonForm = (record, config) => {
 const renderSliderForm = (record) => {
   applySimpleJsonForm(record, {
     extraHtml: (data) => {
+      const availableSlideAssets = getAvailableSlideAssets();
       const slides = Array.isArray(data.slides) ? data.slides : [];
       const slideCards = slides.map((slide, index) => {
         const imageUrl = slide?.image?.url || '';
-        const matched = knownSlideAssets.find((asset) => asset.mediaUrl === imageUrl);
+        const matched = availableSlideAssets.find((asset) => asset.mediaUrl === imageUrl);
         return `
           <article class="admin-slide-card">
-            <img src="${escapeHtml(imageUrl || '/media/assets/Logo-focus-no-background-black.png')}" alt="" />
+            <img src="${escapeHtml(matched?.previewUrl || imageUrl || logoMediaUrl)}" alt="" />
             <div class="admin-slide-copy">
               <strong>${escapeHtml(slide.title || `Slide ${index + 1}`)}</strong>
               <span>${escapeHtml(matched?.fileName || imageUrl || 'No image')}</span>
@@ -589,7 +709,7 @@ const renderSliderForm = (record) => {
         `;
       }).join('');
 
-      const assetButtons = knownSlideAssets.map((asset) => `
+      const assetButtons = availableSlideAssets.map((asset) => `
         <button type="button" class="admin-asset-chip" data-add-asset="${escapeHtml(asset.fileName)}">${escapeHtml(asset.fileName)}</button>
       `).join('');
 
@@ -617,6 +737,7 @@ const renderSliderForm = (record) => {
           next.id = sliderId;
           const sliderSlug = String(next.slug || 'slider');
           const slides = ensureSlides(next);
+          const knownSlideNames = getKnownSlideNames();
           const filtered = fileNames.filter((name) => knownSlideNames.has(name));
           for (const fileName of filtered) slides.push(createSliderSlide(sliderId, sliderSlug, fileName, slides.length));
           slides.forEach((slide, index) => {
@@ -626,6 +747,7 @@ const renderSliderForm = (record) => {
           });
         });
 
+        const knownSlideNames = getKnownSlideNames();
         const missing = fileNames.filter((name) => !knownSlideNames.has(name));
         if (missing.length > 0) setMessage(`Ignored unknown slide assets: ${missing.join(', ')}`, 'warning');
       };
@@ -785,7 +907,7 @@ const buildZipBlob = (files) => {
 
   for (const file of files) {
     const nameBytes = encoder.encode(file.path.replace(/\\/g, '/'));
-    const contentBytes = encoder.encode(file.content);
+    const contentBytes = typeof file.content === 'string' ? encoder.encode(file.content) : file.content;
     const checksum = crc32(contentBytes);
 
     const localHeader = new Uint8Array(30 + nameBytes.length);
@@ -847,7 +969,10 @@ const downloadZip = () => {
   const records = Object.values(state.collections).flat();
   const invalid = records.find((record) => record.parseError);
   if (invalid) return setMessage(`Fix ${invalid.fileName} before exporting the ZIP.`, 'warning');
-  const blob = buildZipBlob(records.map((record) => ({ path: `markdown/${record.relativePath}`, content: record.source })));
+  const blob = buildZipBlob([
+    ...records.map((record) => ({ path: `markdown/${record.relativePath}`, content: record.source })),
+    ...state.uploadedSlideAssets.map((asset) => ({ path: `markdown/${asset.relativePath}`, content: asset.bytes }))
+  ]);
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
   const stamp = new Date().toISOString().slice(0, 19).replaceAll(':', '-');
@@ -897,6 +1022,11 @@ source.addEventListener('input', () => {
 });
 
 document.getElementById('admin-download-zip')?.addEventListener('click', downloadZip);
+
+recordSort?.addEventListener('change', () => {
+  state.recordSort = recordSort.value;
+  render();
+});
 cancelDraftButton?.addEventListener('click', removeDraft);
 
 setMessage('Admin panel ready. Changes stay in memory until you export a ZIP.');

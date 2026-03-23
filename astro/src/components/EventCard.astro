@@ -12,25 +12,35 @@ const formattedDate = new Intl.DateTimeFormat("en-AT", {
   dateStyle: "long",
   timeStyle: "short"
 }).format(new Date(event.date));
+const previewImage = event.titleImage || withBase("/media/assets/Logo-focus-no-background-black.png");
+const previewClass = event.titleImage ? "event-card-preview" : "event-card-preview is-logo";
 ---
 
 <article class="event-card">
-  <div class="event-meta">
-    <span>{formattedDate}</span>
-    {event.tags.length > 0 && <span>{event.tags.join(" / ")}</span>}
+  <div class="event-card-head">
+    <div class="event-card-copy">
+      <div class="event-meta">
+        <span>{formattedDate}</span>
+        {event.tags.length > 0 && <span>{event.tags.join(" / ")}</span>}
+      </div>
+
+      <h3>
+        <a href={withBase(`/events/${event.slug}/`)}>{event.title}</a>
+      </h3>
+
+      {(event.venue || event.organizer) && (
+        <p class="event-context">
+          {event.venue && <span>{event.venue}</span>}
+          {event.venue && event.organizer && <span class="separator">•</span>}
+          {event.organizer && <span>Organized by {event.organizer}</span>}
+        </p>
+      )}
+    </div>
+
+    <a class="event-card-image" href={withBase(`/events/${event.slug}/`)}>
+      <img class={previewClass} src={previewImage} alt={event.title} />
+    </a>
   </div>
-
-  <h3>
-    <a href={withBase(`/events/${event.slug}/`)}>{event.title}</a>
-  </h3>
-
-  {(event.venue || event.organizer) && (
-    <p class="event-context">
-      {event.venue && <span>{event.venue}</span>}
-      {event.venue && event.organizer && <span class="separator">•</span>}
-      {event.organizer && <span>Organized by {event.organizer}</span>}
-    </p>
-  )}
 
   {event.body && <div class="event-summary" set:html={event.html} />}
 </article>
