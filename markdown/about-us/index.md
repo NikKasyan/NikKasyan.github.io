@@ -1,5 +1,3 @@
-# About Us
-
 ![Scott Profile Picture](Scott%20Nelson%20Website.jpg)
 **Scott B. Nelson**
 Scott B. Nelson is Director and Founder of the Vienna Symposium. He has nourished a lifelong passion for the classics in everything from philosophy to the arts. In 2013 he began hosting small informal symposia with friends to discuss great works. This would later grow into the Vienna Symposium. He also likes wine.

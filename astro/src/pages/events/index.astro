@@ -13,6 +13,19 @@ const pastGalleries = (await Promise.all(
     image: (await getSliderImagesByIds(event.sliders))[0]
   }))
 )).filter((entry) => entry.image);
+
+const pastArchive = past.map((event) => ({
+  title: event.title,
+  slug: event.slug,
+  date: event.date,
+  formattedDate: new Intl.DateTimeFormat("en-AT", {
+    dateStyle: "long",
+    timeStyle: "short"
+  }).format(new Date(event.date)),
+  tags: event.tags,
+  venue: event.venue,
+  organizer: event.organizer
+}));
 ---
 
 <BaseLayout title="Events | Vienna Symposium">
@@ -60,14 +73,108 @@ const pastGalleries = (await Promise.all(
     </section>
   )}
 
-  <section class="panel">
-    <div class="section-heading">
-      <p class="eyebrow">Archive</p>
-      <h2>Past events</h2>
+  <section class="panel archive-panel">
+    <div class="section-heading archive-header">
+      <div>
+        <p class="eyebrow">Archive</p>
+        <h2>Past events</h2>
+      </div>
     </div>
 
-    <div class="event-list">
-      {past.map((event) => <EventCard event={event} />)}
+    <div class="archive-toolbar">
+      <label class="archive-control">
+        <span>Search title</span>
+        <input id="archive-search" type="search" placeholder="Search past events" />
+      </label>
+
+      <label class="archive-control archive-select">
+        <span>Sort by date</span>
+        <select id="archive-sort">
+          <option value="desc">Newest first</option>
+          <option value="asc">Oldest first</option>
+        </select>
+      </label>
     </div>
+
+    <div id="archive-results" class="event-list"></div>
+    <p id="archive-empty" class="empty-state" hidden>No past events match the current search.</p>
+    <div id="archive-sentinel" aria-hidden="true"></div>
   </section>
 </BaseLayout>
+
+<script is:inline define:vars={{ pastArchive, baseUrl: withBase("/") }}>
+  const archiveData = pastArchive;
+  const base = baseUrl;
+  const initialCount = 6;
+  const increment = 6;
+  const searchInput = document.getElementById('archive-search');
+  const sortSelect = document.getElementById('archive-sort');
+  const results = document.getElementById('archive-results');
+  const emptyState = document.getElementById('archive-empty');
+  const sentinel = document.getElementById('archive-sentinel');
+  let visibleCount = initialCount;
+
+  const escapeHtml = (value) => value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+
+  const renderEvent = (event) => {
+    const meta = [event.formattedDate];
+    if (event.tags.length > 0) meta.push(event.tags.join(' / '));
+    const context = [];
+    if (event.venue) context.push(`<span>${escapeHtml(event.venue)}</span>`);
+    if (event.organizer) {
+      if (event.venue) context.push('<span class="separator">•</span>');
+      context.push(`<span>Organized by ${escapeHtml(event.organizer)}</span>`);
+    }
+
+    return `
+      <article class="event-card">
+        <div class="event-meta">${meta.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}</div>
+        <h3><a href="${base}events/${event.slug}/">${escapeHtml(event.title)}</a></h3>
+        ${context.length > 0 ? `<p class="event-context">${context.join('')}</p>` : ''}
+      </article>
+    `;
+  };
+
+  const getFiltered = () => {
+    const query = (searchInput?.value || '').trim().toLowerCase();
+    const sort = sortSelect?.value || 'desc';
+    const filtered = archiveData.filter((event) => event.title.toLowerCase().includes(query));
+    filtered.sort((left, right) => {
+      const diff = Date.parse(left.date) - Date.parse(right.date);
+      return sort === 'asc' ? diff : -diff;
+    });
+    return filtered;
+  };
+
+  const render = () => {
+    const filtered = getFiltered();
+    const visible = filtered.slice(0, visibleCount);
+    results.innerHTML = visible.map(renderEvent).join('');
+    emptyState.hidden = filtered.length !== 0;
+    sentinel.hidden = visible.length >= filtered.length;
+  };
+
+  const resetAndRender = () => {
+    visibleCount = initialCount;
+    render();
+  };
+
+  searchInput?.addEventListener('input', resetAndRender);
+  sortSelect?.addEventListener('change', resetAndRender);
+
+  const observer = new IntersectionObserver((entries) => {
+    const current = getFiltered();
+    if (entries.some((entry) => entry.isIntersecting) && visibleCount < current.length) {
+      visibleCount += increment;
+      render();
+    }
+  }, { rootMargin: '320px 0px' });
+
+  if (sentinel) observer.observe(sentinel);
+  render();
+</script>

@@ -17,8 +17,8 @@ We are a community of people who share a passion for philosophy, reflection, and
 
 ### How to join
 
-**Fill out the [Membership Contract](https://vienna-symposium.com/wp-content/uploads/2025/09/VS_Beitrittserklarung.pdf) and return it to us**
+**Fill out the [Membership Contract](../assets/VS_Beitrittserklaerung.pdf) and return it to us**
 
 - Via Email: [office@vienna\-symposium\.com](mailto:office@vienna-symposium.com)
-- Via post: See [address](https://vienna-symposium.com/impressum/)
+- Via post: See [address](/impressum/)
 - In person \(at our next [event](/events)\)

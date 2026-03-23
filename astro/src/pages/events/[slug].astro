@@ -4,6 +4,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import { getEventBySlug, getEvents, getSliderImagesByIds, getVendorByTitle } from "../../lib/content";
 
+function formatCalendarDate(date: Date) {
+  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+}
+
 export async function getStaticPaths() {
   const events = await getEvents();
   return events.map((event) => ({
@@ -20,14 +24,39 @@ if (!event) {
 
 const vendor = await getVendorByTitle(event.venue);
 const sliderImages = await getSliderImagesByIds(event.sliders);
+const eventStart = new Date(event.date);
+const eventEnd = new Date(eventStart.getTime() + 2 * 60 * 60 * 1000);
 const formattedDate = new Intl.DateTimeFormat("en-AT", {
   dateStyle: "full",
   timeStyle: "short"
-}).format(new Date(event.date));
+}).format(eventStart);
 const mapQuery = [event.venue, event.venueAddress].filter(Boolean).join(", ");
 const googleMapsUrl = mapQuery
   ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`
   : undefined;
+const googleMapsEmbedUrl = mapQuery
+  ? `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`
+  : undefined;
+const locationText = [event.venue, event.venueAddress].filter(Boolean).join(", ");
+const eventDescription = event.body || `${event.title} at The Vienna Symposium`;
+const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${formatCalendarDate(eventStart)}/${formatCalendarDate(eventEnd)}&details=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(locationText)}`;
+const outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(event.title)}&startdt=${encodeURIComponent(eventStart.toISOString())}&enddt=${encodeURIComponent(eventEnd.toISOString())}&body=${encodeURIComponent(eventDescription)}&location=${encodeURIComponent(locationText)}`;
+const icsContent = [
+  "BEGIN:VCALENDAR",
+  "VERSION:2.0",
+  "PRODID:-//Vienna Symposium//Events//EN",
+  "BEGIN:VEVENT",
+  `UID:${event.slug}@vienna-symposium`,
+  `DTSTAMP:${formatCalendarDate(new Date())}`,
+  `DTSTART:${formatCalendarDate(eventStart)}`,
+  `DTEND:${formatCalendarDate(eventEnd)}`,
+  `SUMMARY:${event.title.replace(/\n/g, " ")}`,
+  `DESCRIPTION:${eventDescription.replace(/\n/g, " ")}`,
+  `LOCATION:${locationText.replace(/\n/g, " ")}`,
+  "END:VEVENT",
+  "END:VCALENDAR"
+].join("\r\n");
+const icsUrl = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
 ---
 
 <BaseLayout title={`${event.title} | Vienna Symposium`}>
@@ -75,13 +104,31 @@ const googleMapsUrl = mapQuery
         {googleMapsUrl && (
           <div>
             <dt>Map</dt>
-            <dd>
+            <dd class="detail-map-block">
+              {googleMapsEmbedUrl && (
+                <iframe
+                  class="detail-map"
+                  src={googleMapsEmbedUrl}
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title={`Map for ${event.title}`}
+                />
+              )}
               <a class="text-link" href={googleMapsUrl} target="_blank" rel="noreferrer">
                 Open in Google Maps
               </a>
             </dd>
           </div>
         )}
+
+        <div>
+          <dt>Add To Calendar</dt>
+          <dd class="calendar-links">
+            <a class="text-link" href={googleCalendarUrl} target="_blank" rel="noreferrer">Google</a>
+            <a class="text-link" href={outlookCalendarUrl} target="_blank" rel="noreferrer">Outlook</a>
+            <a class="text-link" href={icsUrl} download={`${event.slug}.ics`}>ICS</a>
+          </dd>
+        </div>
 
         {event.organizer && (
           <div>
